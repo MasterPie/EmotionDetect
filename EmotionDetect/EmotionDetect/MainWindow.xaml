@@ -1,0 +1,8 @@
+﻿<Window x:Class="EmotionDetect.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="350" Width="525">
+    <StackPanel>
+        <TextBox Text="{Binding CurrentEmotion,RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}" Foreground="Black" FontSize="40"/>
+    </StackPanel>
+</Window>
