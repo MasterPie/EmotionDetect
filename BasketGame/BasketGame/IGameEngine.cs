@@ -10,6 +10,7 @@ namespace BasketGame
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
+    using System.Windows.Media;
 
     /// <summary>
     /// TODO: Update summary.
@@ -28,10 +29,13 @@ namespace BasketGame
         int CurrentScore { get; }
         int MaxScore { get; }
 
+        Color[] SelectedColors { get; }
         IItemFactory ItemFactory { set; }
         ILevelManager LevelManager { set; }
 
         event EventHandler ScoreUpdated;
+        event EventHandler GameStarted;
+        event EventHandler GameEnded;
         event EventHandler<ItemSpawnEventArgs> ItemSpawned;
         event EventHandler<ChangeLevelEventArgs> LevelFailed;
         event EventHandler<ChangeLevelEventArgs> LevelCompleted;

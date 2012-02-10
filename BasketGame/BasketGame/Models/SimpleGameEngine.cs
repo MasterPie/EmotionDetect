@@ -29,8 +29,9 @@ namespace BasketGame
         private int itemsCollected = 0;
         private int maxItemScore = 0;
 
-        private int[] spawnLocations = null;
+        private double[] spawnLocations = null;
         private Color[] spawnVariety = null;
+        private Color[] randomColors = null;
 
         private Object scoreLock = new Object();
         private System.Random spawnRandomizer;
@@ -43,9 +44,26 @@ namespace BasketGame
             gameLoopTimer.Tick += new EventHandler(gameLoopTimer_Tick);
             gameLoopTimer.Interval = TimeSpan.FromMilliseconds(1500);
 
-            spawnLocations = new int[1];
+            spawnLocations = new double[1];
             spawnVariety = new Color[1];
             spawnVariety[0] = Colors.Red; //set to some default value
+
+            System.Random rand = new Random();
+            Dictionary<int,Color> allColors = new Dictionary<int,Color>();
+            allColors[rand.Next()] = Colors.Red;
+            allColors[rand.Next()] = Colors.Green;
+            allColors[rand.Next()] = Colors.Yellow;
+            allColors[rand.Next()] = Colors.Orange;
+            allColors[rand.Next()] = Colors.Blue;
+
+            randomColors = new Color[allColors.Keys.Count];
+
+            int i = 0;
+            foreach (int key in allColors.Keys.OrderBy(x=>x))
+            {
+                randomColors[i++] = allColors[key];
+            }
+
         }
 
 
@@ -59,6 +77,11 @@ namespace BasketGame
             set { levelManager = value; }
         }
 
+        public IItemFactory ItemFactory
+        {
+            set { itemFactory = value; }
+        }
+
         public void Start()
         {
             if (levelManager == null || itemFactory == null)
@@ -66,6 +89,8 @@ namespace BasketGame
 
             levelManager.Reset();
             AdvanceLevel();
+            if (GameStarted != null)
+                GameStarted(this, new EventArgs());
         }
 
         public void Stop()
@@ -88,13 +113,46 @@ namespace BasketGame
             if (itemFactory == null)
                 throw new ArgumentNullException("An IItemFactory must be created and initialized");
 
-            int randomOffset = spawnLocations[spawnRandomizer.Next(0, spawnLocations.Length)];
+            double randomOffset = spawnLocations[spawnRandomizer.Next(0, spawnLocations.Length)];
             Color randomColor = spawnVariety[spawnRandomizer.Next(0, spawnVariety.Length)];
         
-            IItem blah = itemFactory.Create(randomColor);
+            IItem blah = itemFactory.Create(randomColor, currentLevel.Speed);
 
             if (ItemSpawned != null)
                 ItemSpawned(this, new ItemSpawnEventArgs() { Item = blah, DropOffset = randomOffset, FallSpeed = currentLevel.Speed});
+        }
+
+        public bool NewCatch(IItem item, IBasket basket)
+        {
+            if (item.AssignedColor != basket.Color)
+                return false;
+
+            IncreaseScore();
+
+            return true;
+        }
+
+        public void NewFall()
+        {
+            DecreaseScore();
+        }
+
+        public int CurrentScore
+        {
+            get { return itemsCollected; }
+        }
+
+        public int MaxScore
+        {
+            get { return maxItemScore; }
+        }
+
+        public Color[] SelectedColors
+        {
+            get
+            {
+                return spawnVariety;
+            }
         }
 
         private void IncreaseScore()
@@ -129,24 +187,17 @@ namespace BasketGame
             }
         }
 
-        public bool NewCatch(IItem item, IBasket basket)
+        private void AdvanceLevel()
         {
-            if (item.AssignedColor != basket.Color)
-                return false;
+            gameLoopTimer.Stop();
 
-            IncreaseScore();
+            currentLevel = levelManager.Next();
+            LoadLevel(currentLevel);
 
-            return true;
-        }
+            if (LevelCompleted != null)
+                LevelCompleted(this, new ChangeLevelEventArgs() { SelectedLevel = currentLevel });
 
-        public int CurrentScore
-        {
-            get { return itemsCollected; }
-        }
-
-        public int MaxScore
-        {
-            get { return maxItemScore; }
+            gameLoopTimer.Start();
         }
 
         private void RegressLevel()
@@ -162,43 +213,21 @@ namespace BasketGame
             gameLoopTimer.Start();
         }
 
-        private void AdvanceLevel()
-        {
-            gameLoopTimer.Stop();
-            
-            currentLevel = levelManager.Next();
-            LoadLevel(currentLevel);
-
-            if (LevelCompleted != null)
-                LevelCompleted(this, new ChangeLevelEventArgs() { SelectedLevel = currentLevel });
-            
-            gameLoopTimer.Start();
-        }
-
         private void LoadLevel(ILevel level)
         {
             positiveStreak = negativeStreak = 0;
 
-            spawnLocations = new int[currentLevel.LocationRandomness];
+            spawnLocations = new double[currentLevel.LocationRandomness];
             spawnVariety = new Color[currentLevel.VarietyRandomness];
 
             System.Random rand = new Random();
             for (int i = 0; i < spawnLocations.Length; i++)
-                spawnLocations[i] = (rand).Next(0,800);
+                spawnLocations[i] = (rand).NextDouble();
 
-            
-            Color[] allColors = new Color[]{Colors.Red, Colors.Green, Colors.Yellow, Colors.Orange, Colors.Blue}; //TODO: this should be set dynamically
-
-            rand = new Random();
             for (int i = 0; i < spawnVariety.Length; i++)
-                spawnVariety[i] = allColors[(rand).Next(0, allColors.Length)];
+                spawnVariety[i] = randomColors[i];
 
         }
-
-        public event EventHandler ScoreUpdated;
-        public event EventHandler<ItemSpawnEventArgs> ItemSpawned;
-        public event EventHandler<ChangeLevelEventArgs> LevelFailed;
-        public event EventHandler<ChangeLevelEventArgs> LevelCompleted;
 
         public string AssessState()
         {
@@ -211,16 +240,11 @@ namespace BasketGame
         }
 
 
-        public IItemFactory ItemFactory
-        {
-            set { itemFactory = value; }
-        }
-
-
-        public void NewFall()
-        {
-            IncreaseScore();
-            //DecreaseScore();
-        }
+        public event EventHandler ScoreUpdated;
+        public event EventHandler<ItemSpawnEventArgs> ItemSpawned;
+        public event EventHandler<ChangeLevelEventArgs> LevelFailed;
+        public event EventHandler<ChangeLevelEventArgs> LevelCompleted;
+        public event EventHandler GameStarted;
+        public event EventHandler GameEnded;
     }
 }

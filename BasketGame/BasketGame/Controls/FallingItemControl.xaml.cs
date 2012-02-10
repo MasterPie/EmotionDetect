@@ -20,10 +20,10 @@ namespace BasketGame
     /// </summary>
     public partial class FallingItemControl : UserControl
     {
+        private double dropInterval = 0.0;
         public FallingItemControl()
         {
             InitializeComponent();
-            Fall(10);
         }
 
         private IItem itemModel = null;
@@ -32,7 +32,13 @@ namespace BasketGame
             set
             {
                 itemModel = value;
+                if (itemModel.DropSpeed >= 2)
+                    dropInterval = itemModel.DropSpeed;
+                else
+                    dropInterval = 2;
                 Dummy.Fill = new SolidColorBrush(itemModel.AssignedColor);
+                to = dropInterval;
+                Fall(dropInterval);
             }
             get
             {
@@ -40,10 +46,10 @@ namespace BasketGame
             }
         }
 
-        private double to = 10;
+        private double to = 0;
         public void Fall(double fallTo)
         {
-            BeginAnimation(Canvas.TopProperty, GetAnimation(fallTo, 200));
+            BeginAnimation(Canvas.TopProperty, GetAnimation(fallTo, 50));
         }
 
         private DoubleAnimation GetAnimation(double newValue, int interval)
@@ -55,15 +61,19 @@ namespace BasketGame
 
         void animation_Completed(object sender, EventArgs e)
         {
+            BasketControl basket = null;
             if (HitGround())
             {
                 ((ViewModel)DataContext).ItemHitGround();
-                System.Console.WriteLine("Hit Ground!");
+                ((Canvas)this.Parent).Children.Remove(this);
+            }
+            else if ((basket = HitBasket()) != null && ((ViewModel)DataContext).NewCatch(this.itemModel, basket.BasketModel))
+            {
                 ((Canvas)this.Parent).Children.Remove(this);
             }
             else
             {
-                to += 10;
+                to += dropInterval;
                 Fall(to);
             }
         }
@@ -71,6 +81,28 @@ namespace BasketGame
         private bool HitGround()
         {
             return (double)GetValue(Canvas.TopProperty) >= (App.Current.MainWindow.ActualHeight - 50);
+        }
+
+        private BasketControl HitBasket()
+        {
+            Point p = this.TranslatePoint(new Point(), (UIElement)this.Parent);
+            
+            for (int index = 0; index < VisualTreeHelper.GetChildrenCount((DependencyObject)this.Parent); index++)
+            {
+                Object visualObject = VisualTreeHelper.GetChild((DependencyObject)this.Parent, index);
+                if (visualObject.GetType().Equals(typeof(BasketControl)))
+                {
+                    BasketControl basket = (BasketControl)visualObject;
+                    
+                    Point p_to = basket.TranslatePoint(new Point(), (UIElement)this.Parent);
+
+                    if (Math.Abs(p.X - p_to.X ) - basket.ActualWidth <= 2 && Math.Abs(p.Y - p_to.Y ) - basket.ActualHeight <= 2)
+                    {
+                        return basket;
+                    }
+                }
+            }
+            return null;
         }
     }
 }

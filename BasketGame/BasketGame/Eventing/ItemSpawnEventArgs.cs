@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="IItem.cs" company="">
+// <copyright file="ItemSpawnEventArgs1.cs" company="">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -10,15 +10,14 @@ namespace BasketGame
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
-    using System.Windows.Media;
 
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
-    public interface IItem : ICloneable
+    public class ItemSpawnEventArgs : EventArgs
     {
-        Color AssignedColor { get; set; }
-        string ImageLocation { get; set; }
-        double DropSpeed { get; set; }
+        public double DropOffset;
+        public int FallSpeed;
+        public IItem Item;
     }
 }

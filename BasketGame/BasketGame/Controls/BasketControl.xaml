@@ -6,6 +6,6 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <Rectangle Width="100" Height="50" Fill="Red"/>
+        <Rectangle Width="100" Height="50" Fill="{Binding Color, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}"/>
     </Grid>
 </UserControl>

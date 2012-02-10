@@ -17,6 +17,6 @@ namespace BasketGame
     /// </summary>
     public interface IItemFactory
     {
-        IItem Create(Color color);
+        IItem Create(Color color, Double dropSpeed);
     }
 }

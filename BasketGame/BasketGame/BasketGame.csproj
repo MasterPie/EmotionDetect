@@ -80,14 +80,15 @@
     <Compile Include="IItemFactory.cs" />
     <Compile Include="ILevel.cs" />
     <Compile Include="ILevelManager.cs" />
-    <Compile Include="ChangeLevelEventArgs.cs" />
+    <Compile Include="Eventing\ChangeLevelEventArgs.cs" />
     <Compile Include="Models\Item.cs" />
     <Compile Include="Logging\ILoggable.cs" />
     <Compile Include="Logging\ILogger.cs" />
-    <Compile Include="ItemSpawnEventArgs.cs" />
+    <Compile Include="Eventing\ItemSpawnEventArgs.cs" />
     <Compile Include="Logging\TimeBasedLogger.cs" />
     <Compile Include="OrderedLevelManager.cs" />
     <Compile Include="Models\SimpleGameEngine.cs" />
+    <Compile Include="Eventing\SelectedColorChangeEventArgs.cs" />
     <Compile Include="ViewModel.cs" />
     <Compile Include="ViewModelLoader.cs" />
     <Page Include="Controls\BasketControl.xaml">

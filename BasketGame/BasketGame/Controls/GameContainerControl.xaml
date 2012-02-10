@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:BasketGame"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
-    <Canvas x:Name="FallingRegion">
+    <Canvas x:Name="FallingRegion" MouseLeftButtonDown="FallingRegion_MouseLeftButtonDown" MouseLeftButtonUp="FallingRegion_MouseLeftButtonUp">
         
     </Canvas>
 </UserControl>
