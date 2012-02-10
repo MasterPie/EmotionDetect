@@ -30,12 +30,16 @@ namespace BasketGame
             itemMap[Colors.Orange] = new Item() { AssignedColor = Colors.Orange };
         }
 
-        public IItem Create(Color color)
+        public IItem Create(Color color, double dropSpeed)
         {
-            if(itemMap.ContainsKey(color))
-                return (IItem)itemMap[color].Clone();
+            if (itemMap.ContainsKey(color))
+            {
+                IItem item = (IItem)itemMap[color].Clone();
+                item.DropSpeed = dropSpeed;
+                return item;
+            }
 
-            return (IItem)itemMap.Values.First().Clone();
+            throw new ArgumentOutOfRangeException("An item cannot be created for the specified color.");
         }
     }
 }

@@ -47,5 +47,18 @@ namespace BasketGame
         {
             return new Item() { AssignedColor = color, ImageLocation = imageLocation };
         }
+
+        private double dropSpeed = 5;
+        public double DropSpeed
+        {
+            get
+            {
+                return dropSpeed;
+            }
+            set
+            {
+                dropSpeed = value;
+            }
+        }
     }
 }

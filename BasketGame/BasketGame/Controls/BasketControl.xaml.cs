@@ -39,30 +39,12 @@ namespace BasketGame
 
         }
 
-        protected override void OnMouseMove(MouseEventArgs e)
+        public SolidColorBrush Color
         {
-            //base.OnMouseMove(e);
-            if (e.LeftButton == MouseButtonState.Pressed && basket != null)
+            get
             {
-                Point screen = e.GetPosition(App.Current.MainWindow);
-                System.Console.WriteLine("Moving to ({0},{1})", screen.X, screen.Y);
-                //this.RenderTransform = new TranslateTransform() {X = screen.X, Y = screen.Y };
-                //Canvas.SetLeft(this,screen.X);
-                //Canvas.SetTop(this,screen.Y);
-                // Package the data.
-                DataObject data = new DataObject();
-                data.SetData("Object", basket);
-                data.SetData("Object", this);
-
-                // Inititate the drag-and-drop operation.
-                //DragDrop.DoDragDrop(this, data, DragDropEffects.Copy | DragDropEffects.Move);
+                return new SolidColorBrush(basket.Color);
             }
-        }
-
-        protected override void OnGiveFeedback(GiveFeedbackEventArgs e)
-        {
-            base.OnGiveFeedback(e);
-            
         }
     }
 }

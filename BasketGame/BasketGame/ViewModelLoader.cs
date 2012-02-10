@@ -36,9 +36,9 @@ namespace BasketGame
             gameEngine.ItemFactory = themeBuilder.GetItemFactory();
 
 
-            ILevel levelOne = new BasicLevel() { ID = 1, LocationRandomness = 2, VarietyRandomness = 2 };
-            ILevel levelTwo = new BasicLevel() { ID = 2, LocationRandomness = 10, VarietyRandomness = 2 };
-            ILevel levelThree = new BasicLevel() { ID = 3, LocationRandomness = 10, VarietyRandomness = 5 };
+            ILevel levelOne = new BasicLevel() { ID = 1, LocationRandomness = 2, VarietyRandomness = 2, Speed = 5 };
+            ILevel levelTwo = new BasicLevel() { ID = 2, LocationRandomness = 10, VarietyRandomness = 2, Speed = 5};
+            ILevel levelThree = new BasicLevel() { ID = 3, LocationRandomness = 10, VarietyRandomness = 5, Speed = 5 };
 
             ILevelManager levelManager = new OrderedLevelManager();
             levelManager.LoadLevels(new List<ILevel>(){levelOne, levelTwo, levelThree});
