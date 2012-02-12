@@ -12,6 +12,7 @@ namespace BasketGame
     using System.Text;
     using System.Windows.Threading;
     using System.Windows.Media;
+using DetectClient;
 
     /// <summary>
     /// TODO: Update summary.
@@ -23,9 +24,9 @@ namespace BasketGame
         private IItemFactory itemFactory = null;
         private DispatcherTimer gameLoopTimer = null;
 
-        private const int STREAK_THRESHOLD = 15;
-        private int negativeStreak = 0;
-        private int positiveStreak = 0;
+        protected const int STREAK_THRESHOLD = 15;
+        protected int negativeStreak = 0;
+        protected int positiveStreak = 0;
         private int itemsCollected = 0;
         private int maxItemScore = 0;
 
@@ -82,6 +83,26 @@ namespace BasketGame
             set { itemFactory = value; }
         }
 
+        private DetectClient.Client emotionClassifier = null;
+        public DetectClient.Client EmotionClassifier
+        {
+            set
+            {
+                emotionClassifier = value;
+                emotionClassifier.SustainedEmotionChanged += new EventHandler<EmotionEventArgs>(emotionClassifier_SustainedEmotionChanged);
+            }
+        }
+
+        protected Label currentEmotion;
+        protected virtual void emotionClassifier_SustainedEmotionChanged(object sender, DetectClient.EmotionEventArgs e)
+        {
+            currentEmotion = e.Emotion;
+            System.Console.WriteLine("CURRENT EMOTION is {0}", currentEmotion);
+            
+            //logging?
+            //TODO: log
+        }
+
         public void Start()
         {
             if (levelManager == null || itemFactory == null)
@@ -98,7 +119,7 @@ namespace BasketGame
             gameLoopTimer.Stop();
         }
 
-        void gameLoopTimer_Tick(object sender, EventArgs e)
+        protected virtual void gameLoopTimer_Tick(object sender, EventArgs e)
         {
             if (positiveStreak >= STREAK_THRESHOLD)
                 AdvanceLevel();
@@ -108,7 +129,7 @@ namespace BasketGame
             SpawnItem();
         }
 
-        private void SpawnItem()
+        protected void SpawnItem()
         {
             if (itemFactory == null)
                 throw new ArgumentNullException("An IItemFactory must be created and initialized");
@@ -187,7 +208,7 @@ namespace BasketGame
             }
         }
 
-        private void AdvanceLevel()
+        protected void AdvanceLevel()
         {
             gameLoopTimer.Stop();
 
@@ -200,7 +221,7 @@ namespace BasketGame
             gameLoopTimer.Start();
         }
 
-        private void RegressLevel()
+        protected void RegressLevel()
         {
             gameLoopTimer.Stop();
 
@@ -246,5 +267,7 @@ namespace BasketGame
         public event EventHandler<ChangeLevelEventArgs> LevelCompleted;
         public event EventHandler GameStarted;
         public event EventHandler GameEnded;
+
+        
     }
 }

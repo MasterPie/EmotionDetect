@@ -12,7 +12,9 @@ namespace BasketGame
     using System.Linq;
     using System.Text;
     using System.ComponentModel;
-using System.Windows.Media;
+    using System.Windows.Media;
+
+    using DetectClient;
 
     /// <summary>
     /// TODO: Update summary.
@@ -37,6 +39,7 @@ using System.Windows.Media;
             engine.Start();
         }
 
+
         void gameEngine_GameStarted(object sender, EventArgs e)
         {
             if (SelectedColorsChanged != null)
@@ -51,6 +54,7 @@ using System.Windows.Media;
 
         void gameEngine_LevelFailed(object sender, ChangeLevelEventArgs e)
         {
+            System.Console.WriteLine("Going down one level!");
             if (SelectedColorsChanged != null)
                 SelectedColorsChanged(this, new SelectedColorChangeEventArgs() { SelectedColors = engine.SelectedColors });
         }
@@ -76,6 +80,15 @@ using System.Windows.Media;
         public void ItemHitGround()
         {
             engine.NewFall();
+        }
+
+        private Label lastLabel;
+        public string Emotion
+        {
+            get
+            {
+                return lastLabel.ToString();
+            }
         }
 
         public Color[] SelectedColors

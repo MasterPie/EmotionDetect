@@ -60,6 +60,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="AbstractThemeBuilder.cs" />
+    <Compile Include="AffectMediatedGameEngine.cs" />
     <Compile Include="AnimalThemeBuilder.cs" />
     <Compile Include="Models\Basket.cs" />
     <Compile Include="Models\BasicLevel.cs" />
@@ -140,7 +141,12 @@
     </None>
     <AppDesigner Include="Properties\" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\..\EmotionDetect\DetectClient\DetectClient.csproj">
+      <Project>{96376886-0331-4228-8158-62EB66E29014}</Project>
+      <Name>DetectClient</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

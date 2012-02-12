@@ -5,6 +5,7 @@
         Title="MainWindow" Height="576" Width="1024" DataContext="{Binding ViewModel, Source={StaticResource loader}}">
     <Grid>
         <TextBlock Text="{Binding Score}" FontSize="32"/>
+        <TextBlock Text="{Binding Emotion}" FontSize="32"/>
         <local:GameContainerControl />
     </Grid>
 </Window>

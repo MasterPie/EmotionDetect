@@ -16,8 +16,8 @@ namespace DetectClient
     /// </summary>
     public class EmotionEventArgs : EventArgs
     {
-        public enum Label {Happy, Neutral}
-
         public Label Emotion{get;set;}
     }
+
+    public enum Label { Neutral, Happy}
 }
