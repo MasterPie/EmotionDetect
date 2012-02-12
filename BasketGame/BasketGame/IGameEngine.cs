@@ -30,6 +30,7 @@ namespace BasketGame
         int MaxScore { get; }
 
         Color[] SelectedColors { get; }
+        DetectClient.Client EmotionClassifier { set; }
         IItemFactory ItemFactory { set; }
         ILevelManager LevelManager { set; }
 

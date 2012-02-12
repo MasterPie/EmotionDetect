@@ -20,6 +20,7 @@ namespace BasketGame
     {
         static ViewModel viewModelStatic;
 
+        static DetectClient.Client emotionClassifer = null;
         static AbstractThemeBuilder themeBuilder = null;
         static IGameEngine gameEngine = null;
         static ILogger logger = null;
@@ -31,9 +32,11 @@ namespace BasketGame
                 .FromProperty(prop, typeof(FrameworkElement))
                 .Metadata.DefaultValue;
 
+            emotionClassifer = new DetectClient.Client();
             themeBuilder = new FruitThemeBuilder();
-            gameEngine = new SimpleGameEngine();
+            gameEngine = new AffectMediatedGameEngine();
             gameEngine.ItemFactory = themeBuilder.GetItemFactory();
+            gameEngine.EmotionClassifier = emotionClassifer;
 
 
             ILevel levelOne = new BasicLevel() { ID = 1, LocationRandomness = 2, VarietyRandomness = 2, Speed = 5 };

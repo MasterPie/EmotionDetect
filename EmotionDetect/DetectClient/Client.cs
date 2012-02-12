@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Sockets;
 using System.Text;
 using System.ComponentModel;
+using System.Timers;
 
 namespace DetectClient
 {
@@ -13,18 +14,44 @@ namespace DetectClient
         BackgroundWorker clientConnectionWorker;
         BackgroundWorker clientEmotionCheck;
 
+        private Timer retryTimer = null;
+        private Label currentEmotionExpressed;
+        private Object emotionKey = new Object();
+        private bool firstRun = true;
+
+        List<Label> window = null;
+        Dictionary<Label, double> windowPercentages = null;
+
         public Client()
         {
+            window = new List<Label>();
+            windowPercentages = new Dictionary<Label, double>();
+            foreach (Label label in (Label[])Enum.GetValues(typeof(Label)))
+            {
+                windowPercentages.Add(label, 0);
+            }
+
+            retryTimer = new Timer(2000);
+            retryTimer.Elapsed += new ElapsedEventHandler(retryTimer_Elapsed);
+
             clientConnectionWorker = new BackgroundWorker();
+            clientConnectionWorker.WorkerSupportsCancellation = true;
             clientConnectionWorker.DoWork += new DoWorkEventHandler(clientWorker_DoWork);
             clientConnectionWorker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(clientConnectionWorker_RunWorkerCompleted);
 
             clientEmotionCheck = new BackgroundWorker();
             clientEmotionCheck.DoWork += new DoWorkEventHandler(clientEmotionCheck_DoWork);
+
             Init();
         }
 
         
+
+        void retryTimer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            retryTimer.Stop();
+            Init();
+        }
 
         void clientConnectionWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
@@ -46,15 +73,25 @@ namespace DetectClient
                 serverStream.Write(outStream, 0, outStream.Length);
                 serverStream.Flush();
             }
-            catch (Exception)
+            catch (SocketException)
             {
-
+                clientConnectionWorker.CancelAsync();
             }
         }
 
+        private Label lastEmotion;
         void clientEmotionCheck_DoWork(object sender, DoWorkEventArgs e)
         {
-            NetworkStream serverStream = clientSocket.GetStream();
+            NetworkStream serverStream = null;
+            try
+            {
+                serverStream = clientSocket.GetStream();
+            }
+            catch (InvalidOperationException ex)
+            {
+                retryTimer.Start();
+                return;
+            }
 
             while (true)
             {
@@ -68,12 +105,60 @@ namespace DetectClient
 
                 string returndata = System.Text.Encoding.ASCII.GetString(trimmedWord);
 
-                if(EmotionChanged != null)
-                    EmotionChanged(this, new EmotionEventArgs() { 
-                        Emotion = (EmotionEventArgs.Label)Enum.Parse(typeof(EmotionEventArgs.Label), returndata,true) });
+                currentEmotionExpressed = (Label)Enum.Parse(typeof(Label), returndata, true);
+
+                if (currentEmotionExpressed != lastEmotion || firstRun)
+                {
+                    firstRun = false;
+
+                    if(EmotionChanged != null){
+                        EmotionChanged(this, new EmotionEventArgs()
+                        {
+                            Emotion = currentEmotionExpressed
+                        });
+                    }
+                }
+                lastEmotion = currentEmotionExpressed;
+
+                CheckSustained(lastEmotion);
+            }
+        }
+
+        private const double PERCENT_THRESHOLD = 0.3;
+        private Label sustainedEmotion;
+        private void CheckSustained(Label currentEmotion)
+        {
+            if (window.Count == 10)
+                window.RemoveAt(0);
+
+            //TODO: check for latency
+
+            window.Add(currentEmotion);
+
+            List<Label> keys = windowPercentages.Keys.ToList<Label>();
+            for (int i = 0; i < keys.Count; i++)
+            {
+                windowPercentages[keys[i]] = 0.0;
+            }
+
+            foreach (Label label in window)
+            {
+                windowPercentages[label] += (1.0 / 10);
+            }
+
+            List<KeyValuePair<Label,double>> sortedPercentages = windowPercentages.ToList<KeyValuePair<Label, double>>();
+            sortedPercentages.Sort((x, y) => y.Value.CompareTo(x.Value));
+
+            if ((sortedPercentages[0].Value - sortedPercentages[1].Value) >= PERCENT_THRESHOLD && sustainedEmotion != sortedPercentages[0].Key)
+            {
+                sustainedEmotion = sortedPercentages[0].Key;
+
+                if (SustainedEmotionChanged != null)
+                    SustainedEmotionChanged(this, new EmotionEventArgs() { Emotion = sustainedEmotion });
             }
         }
 
         public EventHandler<EmotionEventArgs> EmotionChanged;
+        public EventHandler<EmotionEventArgs> SustainedEmotionChanged;
     }
 }

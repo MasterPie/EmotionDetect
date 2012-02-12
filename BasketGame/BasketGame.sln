@@ -3,25 +3,50 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BasketGame", "BasketGame\BasketGame.csproj", "{AA5C0D40-936C-46D2-8521-EFDA13CF0801}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DetectClient", "..\EmotionDetect\DetectClient\DetectClient.csproj", "{96376886-0331-4228-8158-62EB66E29014}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 2
+		SccNumberOfProjects = 3
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs01
 		SccLocalPath0 = .
 		SccProjectUniqueName1 = BasketGame\\BasketGame.csproj
 		SccProjectName1 = BasketGame
 		SccLocalPath1 = BasketGame
+		SccProjectUniqueName2 = ..\\EmotionDetect\\DetectClient\\DetectClient.csproj
+		SccProjectName2 = ../EmotionDetect/DetectClient
+		SccLocalPath2 = ..\\EmotionDetect\\DetectClient
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|Mixed Platforms = Debug|Mixed Platforms
 		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|Mixed Platforms = Release|Mixed Platforms
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AA5C0D40-936C-46D2-8521-EFDA13CF0801}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{AA5C0D40-936C-46D2-8521-EFDA13CF0801}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{AA5C0D40-936C-46D2-8521-EFDA13CF0801}.Debug|Mixed Platforms.Build.0 = Debug|x86
 		{AA5C0D40-936C-46D2-8521-EFDA13CF0801}.Debug|x86.ActiveCfg = Debug|x86
 		{AA5C0D40-936C-46D2-8521-EFDA13CF0801}.Debug|x86.Build.0 = Debug|x86
+		{AA5C0D40-936C-46D2-8521-EFDA13CF0801}.Release|Any CPU.ActiveCfg = Release|x86
+		{AA5C0D40-936C-46D2-8521-EFDA13CF0801}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{AA5C0D40-936C-46D2-8521-EFDA13CF0801}.Release|Mixed Platforms.Build.0 = Release|x86
 		{AA5C0D40-936C-46D2-8521-EFDA13CF0801}.Release|x86.ActiveCfg = Release|x86
 		{AA5C0D40-936C-46D2-8521-EFDA13CF0801}.Release|x86.Build.0 = Release|x86
+		{96376886-0331-4228-8158-62EB66E29014}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96376886-0331-4228-8158-62EB66E29014}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96376886-0331-4228-8158-62EB66E29014}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{96376886-0331-4228-8158-62EB66E29014}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{96376886-0331-4228-8158-62EB66E29014}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{96376886-0331-4228-8158-62EB66E29014}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96376886-0331-4228-8158-62EB66E29014}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96376886-0331-4228-8158-62EB66E29014}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{96376886-0331-4228-8158-62EB66E29014}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{96376886-0331-4228-8158-62EB66E29014}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
