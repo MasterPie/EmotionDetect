@@ -20,9 +20,9 @@ namespace BasketGame
     {
         protected override void gameLoopTimer_Tick(object sender, EventArgs e)
         {
-            if (positiveStreak >= STREAK_THRESHOLD && currentEmotion == Label.Happy )
+            if (positiveStreak >= STREAK_THRESHOLD && (currentEmotion == Label.Happy || currentEmotion == Label.Neutral))
                 AdvanceLevel();
-            else if (negativeStreak >= STREAK_THRESHOLD || currentEmotion == Label.Neutral)
+            else if (negativeStreak >= STREAK_THRESHOLD || currentEmotion == Label.Sad)
                 RegressLevel();
 
             SpawnItem();

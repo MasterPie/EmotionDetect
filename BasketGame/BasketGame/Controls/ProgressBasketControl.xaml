@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="BasketGame.BasketControl"
+﻿<UserControl x:Class="BasketGame.ProgressBasketControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -6,7 +6,6 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <Image x:Name="BasketImage" />
-        <Rectangle Width="100" Height="50" Fill="{Binding Color, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}" Visibility="Hidden"/>
+        <Image Source="pack://application:,,,/Images/progressbasket.png" Width="207" Height="143" />
     </Grid>
 </UserControl>

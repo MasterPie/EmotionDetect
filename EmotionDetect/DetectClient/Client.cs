@@ -105,7 +105,14 @@ namespace DetectClient
 
                 string returndata = System.Text.Encoding.ASCII.GetString(trimmedWord);
 
-                currentEmotionExpressed = (Label)Enum.Parse(typeof(Label), returndata, true);
+                try
+                {
+                    currentEmotionExpressed = (Label)Enum.Parse(typeof(Label), returndata, true);
+                }
+                catch (Exception f)
+                {
+                    continue;
+                }
 
                 if (currentEmotionExpressed != lastEmotion || firstRun)
                 {

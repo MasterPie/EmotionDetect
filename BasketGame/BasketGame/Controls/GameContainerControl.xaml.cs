@@ -19,14 +19,35 @@ namespace BasketGame
     /// </summary>
     public partial class GameContainerControl : UserControl
     {
+        private bool twoClickDrag = false;
         private List<BasketControl> baskets;
         private Dictionary<BasketControl, double> defaultBasketLocations;
         public GameContainerControl()
         {
             InitializeComponent();
+            twoClickDrag = Properties.Settings.Default.TwoClickDrag;
+
+            LoadImages();
+
             baskets = new List<BasketControl>();
             defaultBasketLocations = new Dictionary<BasketControl, double>();
             this.Loaded += new RoutedEventHandler(GameContainerControl_Loaded);
+        }
+
+        void LoadImages()
+        {
+            Application.Current.Resources.Add(Colors.Red.ToString() + "Item", new BitmapImage(new Uri(@"pack://application:,,,/Images/apple.png", UriKind.RelativeOrAbsolute)));
+            Application.Current.Resources.Add(Colors.Blue.ToString() + "Item", new BitmapImage(new Uri(@"pack://application:,,,/Images/blueberries.png", UriKind.RelativeOrAbsolute)));
+            Application.Current.Resources.Add(Colors.Green.ToString() + "Item", new BitmapImage(new Uri(@"pack://application:,,,/Images/pear.png", UriKind.RelativeOrAbsolute)));
+            Application.Current.Resources.Add(Colors.Yellow.ToString() + "Item", new BitmapImage(new Uri(@"pack://application:,,,/Images/banana.png", UriKind.RelativeOrAbsolute)));
+            Application.Current.Resources.Add(Colors.Orange.ToString() + "Item", new BitmapImage(new Uri(@"pack://application:,,,/Images/orange.png", UriKind.RelativeOrAbsolute)));
+
+
+            Application.Current.Resources.Add(Colors.Red.ToString() + "Basket", new BitmapImage(new Uri(@"pack://application:,,,/Images/redbasket.png", UriKind.RelativeOrAbsolute)));
+            Application.Current.Resources.Add(Colors.Blue.ToString() + "Basket", new BitmapImage(new Uri(@"pack://application:,,,/Images/bluebasket.png", UriKind.RelativeOrAbsolute)));
+            Application.Current.Resources.Add(Colors.Green.ToString() + "Basket", new BitmapImage(new Uri(@"pack://application:,,,/Images/greenbasket.png", UriKind.RelativeOrAbsolute)));
+            Application.Current.Resources.Add(Colors.Yellow.ToString() + "Basket", new BitmapImage(new Uri(@"pack://application:,,,/Images/yellowbasket.png", UriKind.RelativeOrAbsolute)));
+            Application.Current.Resources.Add(Colors.Orange.ToString() + "Basket", new BitmapImage(new Uri(@"pack://application:,,,/Images/orangebasket.png", UriKind.RelativeOrAbsolute)));
         }
 
         void GameContainerControl_Loaded(object sender, RoutedEventArgs e)
@@ -76,7 +97,7 @@ namespace BasketGame
 
         private void LoadBaskets(List<IBasket> basketModels)
         {
-            double basketSize = 100;
+            double basketSize = 150;
             double margin = 50;
             double leftOffset = (App.Current.MainWindow.ActualWidth - (basketModels.Count * basketSize + (basketModels.Count - 1) * margin))/2;
             foreach (Basket basket in basketModels)
@@ -125,9 +146,19 @@ namespace BasketGame
             {
                 if (testResult != null && ((UIElement)testResult.VisualHit).IsDescendantOf(basket))
                 {
-                    basket.MouseMove += new MouseEventHandler(basket_MouseMove);
-                    basket.CaptureMouse();
+                    if (twoClickDrag && basket.IsMouseCaptured)
+                    {
+                        basket.MouseMove -= new MouseEventHandler(basket_MouseMove);
+                        basket.ReleaseMouseCapture();
+                        ResetBasketLocation(basket);
+                    }
+                    else
+                    {
+                        basket.MouseMove += new MouseEventHandler(basket_MouseMove);
+                        basket.CaptureMouse();
+                    }
                 }
+                
             }
         }
 
@@ -138,7 +169,7 @@ namespace BasketGame
             {
                 Point p = e.GetPosition(canvas);
 
-                if (basket.IsMouseCaptured)
+                if (!twoClickDrag && basket.IsMouseCaptured)
                 {
                     basket.MouseMove -= new MouseEventHandler(basket_MouseMove);
                     basket.ReleaseMouseCapture();

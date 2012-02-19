@@ -19,5 +19,5 @@ namespace DetectClient
         public Label Emotion{get;set;}
     }
 
-    public enum Label { Neutral, Happy}
+    public enum Label { Neutral, Happy, Sad}
 }
