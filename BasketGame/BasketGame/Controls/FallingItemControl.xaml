@@ -6,6 +6,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <Rectangle Fill="Red" Width="50" Height="50" x:Name="Dummy"/>
+        <Image x:Name="ItemImage"/>
+        <Rectangle Fill="Red" Width="50" Height="50" x:Name="Dummy" Visibility="Hidden"/>
     </Grid>
 </UserControl>

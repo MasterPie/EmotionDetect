@@ -30,7 +30,7 @@ namespace BasketGame
             set
             {
                 basket = value;
-
+                BasketImage.SetResourceReference(Image.SourceProperty, basket.Color.ToString() + "Basket");
             }
             get
             {

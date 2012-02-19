@@ -36,6 +36,7 @@ namespace BasketGame
                     dropInterval = itemModel.DropSpeed;
                 else
                     dropInterval = 2;
+                ItemImage.SetResourceReference(Image.SourceProperty, itemModel.AssignedColor.ToString() + "Item");
                 Dummy.Fill = new SolidColorBrush(itemModel.AssignedColor);
                 to = dropInterval;
                 Fall(dropInterval);
