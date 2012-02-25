@@ -3,9 +3,18 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
-        <Image Source="pack://application:,,,/Images/progressbasket.png" Width="207" Height="143" />
+             mc:Ignorable="d" xmlns:local="clr-namespace:BasketGame"
+             d:DesignHeight="695" d:DesignWidth="318">
+    <UserControl.Resources>
+        <local:ScoreBasketHeightConverter x:Key="scoreConverter"/>
+    </UserControl.Resources>
+    <Grid Height="600">
+        <Image Source="pack://application:,,,/Images/rope.png" Width="116" Height="500" VerticalAlignment="Top" Margin="0 50 0 0"/>
+        <Image Source="pack://application:,,,/Images/hotairballoonthumb.png" Width="120" Height="135" VerticalAlignment="Top"/>
+        <Image Source="pack://application:,,,/Images/mainbasket.png" Width="100" Height="100" Margin="0 380 0 0">
+            <Image.RenderTransform>
+                <TranslateTransform Y="{Binding Score, Converter={StaticResource scoreConverter}, ConverterParameter=50}"/>
+            </Image.RenderTransform>
+        </Image>
     </Grid>
 </UserControl>

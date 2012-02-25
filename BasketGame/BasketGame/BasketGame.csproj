@@ -19,6 +19,7 @@
     <SccLocalPath>SAK</SccLocalPath>
     <SccAuxPath>SAK</SccAuxPath>
     <SccProvider>SAK</SccProvider>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -31,7 +32,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -80,6 +80,7 @@
     <Compile Include="Controls\BalloonControl.xaml.cs">
       <DependentUpon>BalloonControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converters\ScoreBasketHeightConverter.cs" />
     <Compile Include="Models\Basket.cs" />
     <Compile Include="Models\BasicLevel.cs" />
     <Compile Include="Controls\BasketControl.xaml.cs">
@@ -225,7 +226,22 @@
     <Resource Include="Images\hotairballoon.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\progressbasket.png" />
+    <Resource Include="Images\hotairballoonthumb.png" />
+    <Resource Include="Images\mainbasket.png" />
+    <Resource Include="Images\rope.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Music\poof.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Music\splat.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Resource Include="Images\poof.png" />
+    <Resource Include="Images\splat.png" />
+    <Content Include="Music\gameMusic.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -99,13 +99,14 @@ namespace BasketGame
         {
             double basketSize = 150;
             double margin = 50;
-            double leftOffset = (App.Current.MainWindow.ActualWidth - (basketModels.Count * basketSize + (basketModels.Count - 1) * margin))/2;
+            double leftOffset = (this.ActualWidth - (basketModels.Count * basketSize + (basketModels.Count - 1) * margin))/2;
             foreach (Basket basket in basketModels)
             {
                 BasketControl basketControl = new BasketControl() { BasketModel = basket};
                 FallingRegion.Children.Add(basketControl);
                 Canvas.SetBottom(basketControl, 50);
                 Canvas.SetLeft(basketControl, leftOffset);
+                Canvas.SetZIndex(basketControl, 1);
                 baskets.Add(basketControl);
                 defaultBasketLocations.Add(basketControl, leftOffset);
                 leftOffset += (margin + basketSize); //TODO: actually calculate this properly
@@ -117,7 +118,8 @@ namespace BasketGame
             FallingItemControl newItem = new FallingItemControl() { ItemModel = e.Item};
             FallingRegion.Children.Add(newItem);
             Canvas.SetTop(newItem, 0);
-            Canvas.SetLeft(newItem, e.DropOffset*App.Current.MainWindow.ActualWidth - newItem.ActualWidth / 2); //TODO:make sure stuff doesn't go out of bounds
+            Canvas.SetLeft(newItem, e.DropOffset*this.ActualWidth);
+            Canvas.SetZIndex(newItem, 50);
         }
 
         void basket_MouseMove(object sender, MouseEventArgs e)
