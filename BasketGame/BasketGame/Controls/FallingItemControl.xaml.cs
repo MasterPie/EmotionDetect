@@ -12,6 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Media.Animation;
+using System.Windows.Threading;
 
 namespace BasketGame
 {
@@ -20,10 +21,23 @@ namespace BasketGame
     /// </summary>
     public partial class FallingItemControl : UserControl
     {
+        private MediaPlayer soundPlayer;
+        private DispatcherTimer disposeTimer;
         private double dropInterval = 0.0;
         public FallingItemControl()
         {
             InitializeComponent();
+            disposeTimer = new DispatcherTimer();
+            disposeTimer.Interval = TimeSpan.FromSeconds(1);
+            disposeTimer.Tick += new EventHandler(disposeTimer_Tick);
+
+            soundPlayer = new MediaPlayer();
+        }
+
+        void disposeTimer_Tick(object sender, EventArgs e)
+        {
+            disposeTimer.Stop();
+            ((Canvas)this.Parent).Children.Remove(this);
         }
 
         private IItem itemModel = null;
@@ -66,11 +80,23 @@ namespace BasketGame
             if (HitGround())
             {
                 ((ViewModel)DataContext).ItemHitGround();
-                ((Canvas)this.Parent).Children.Remove(this);
+                soundPlayer.Open(new Uri("Music/splat.mp3",UriKind.RelativeOrAbsolute));
+                soundPlayer.Volume = 1;
+                soundPlayer.Play();
+                ItemImage.Visibility = System.Windows.Visibility.Hidden;
+                Splat.Visibility = System.Windows.Visibility.Visible;
+
+                disposeTimer.Start();
             }
             else if ((basket = HitBasket()) != null && ((ViewModel)DataContext).NewCatch(this.itemModel, basket.BasketModel))
             {
-                ((Canvas)this.Parent).Children.Remove(this);
+                soundPlayer.Open(new Uri("Music/poof.mp3", UriKind.RelativeOrAbsolute));
+                soundPlayer.Volume = 1;
+                soundPlayer.Play();
+                ItemImage.Visibility = System.Windows.Visibility.Hidden;
+                Poof.Visibility = System.Windows.Visibility.Visible;
+                disposeTimer.Interval = TimeSpan.FromMilliseconds(500);
+                disposeTimer.Start();
             }
             else
             {
@@ -97,7 +123,7 @@ namespace BasketGame
                     
                     Point p_to = basket.TranslatePoint(new Point(), (UIElement)this.Parent);
 
-                    if (Math.Abs(p.X - p_to.X ) - basket.ActualWidth <= 2 && Math.Abs(p.Y - p_to.Y ) - basket.ActualHeight <= 2)
+                    if (Math.Abs(p.X - p_to.X ) - basket.ActualWidth <= 2 && Math.Abs(p.Y - p_to.Y ) - basket.ActualHeight /(3/2) <= 2)
                     {
                         return basket;
                     }

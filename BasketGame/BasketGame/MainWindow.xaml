@@ -4,12 +4,23 @@
         xmlns:local="clr-namespace:BasketGame" WindowState="Maximized" WindowStyle="None" ResizeMode="NoResize"
         Title="MainWindow" Height="1080" Width="1920" DataContext="{Binding ViewModel, Source={StaticResource loader}}">
     <Grid>
-        
-        <TextBlock Text="{Binding Emotion}" FontSize="32"/>
         <Image Source="pack://application:,,,/Images/background.png" Width="1920" Height="1080" Stretch="Fill"/>
-        <TextBlock Text="{Binding Score}" FontSize="32"/>
         <local:BalloonControl HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-50 -50 0 0"/>
-        <!--<local:ProgressBasketControl HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20 400 0 0"/>-->
-        <local:GameContainerControl />
+        <!--<TextBlock Text="{Binding Emotion}" FontSize="32" VerticalAlignment="Bottom" Margin="100 0 0 0"/>-->
+        <TextBlock Text="{Binding Score}" FontSize="32" VerticalAlignment="Bottom"/>
+        <local:ProgressBasketControl HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 250 20 0"/>
+        <local:GameContainerControl Width="1300" HorizontalAlignment="Center"/>
+        <MediaElement Volume="0.3" x:Name="BackgroundMusic"/>
+        <Grid.Triggers>
+            <EventTrigger RoutedEvent="Grid.Loaded">
+                <EventTrigger.Actions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <MediaTimeline Source="Music/gameMusic.mp3" Storyboard.TargetName="BackgroundMusic" RepeatBehavior="Forever"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger.Actions>
+            </EventTrigger>
+        </Grid.Triggers>
     </Grid>
 </Window>

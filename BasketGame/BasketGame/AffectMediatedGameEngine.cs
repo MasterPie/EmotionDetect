@@ -23,7 +23,12 @@ namespace BasketGame
             if (positiveStreak >= STREAK_THRESHOLD && (currentEmotion == Label.Happy || currentEmotion == Label.Neutral))
                 AdvanceLevel();
             else if (negativeStreak >= STREAK_THRESHOLD || currentEmotion == Label.Sad)
+            {
+                //if (currentEmotion == Label.Sad)
+                //    ite - 15;
+                //TODO: have to decrease score count too because the score was not decreased
                 RegressLevel();
+            }
 
             SpawnItem();
         }

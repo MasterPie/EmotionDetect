@@ -64,7 +64,6 @@ using DetectClient;
             {
                 randomColors[i++] = allColors[key];
             }
-
         }
 
 
@@ -188,6 +187,8 @@ using DetectClient;
 
                 if (ScoreUpdated != null)
                     ScoreUpdated(this, new EventArgs());
+
+                CheckWinGame();
             }
         }
 
@@ -248,6 +249,18 @@ using DetectClient;
             for (int i = 0; i < spawnVariety.Length; i++)
                 spawnVariety[i] = randomColors[i];
 
+        }
+
+        private void CheckWinGame()
+        {
+            if (itemsCollected >= 80)
+            {
+                gameLoopTimer.Stop();
+                if (GameEnded != null)
+                {
+                    GameEnded(this, new EventArgs());
+                }
+            }
         }
 
         public string AssessState()
