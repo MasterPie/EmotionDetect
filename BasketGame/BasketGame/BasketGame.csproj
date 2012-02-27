@@ -80,6 +80,9 @@
     <Compile Include="Controls\BalloonControl.xaml.cs">
       <DependentUpon>BalloonControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\EndGameSplashControl.xaml.cs">
+      <DependentUpon>EndGameSplashControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Converters\ScoreBasketHeightConverter.cs" />
     <Compile Include="Models\Basket.cs" />
     <Compile Include="Models\BasicLevel.cs" />
@@ -120,6 +123,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\BasketControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\EndGameSplashControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -231,6 +238,27 @@
     <Resource Include="Images\rope.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Images\goodjob.png" />
+    <Content Include="Music\keepitup.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Music\ohno.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Music\thanks.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Music\usebaskets.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Resource Include="Images\clouds.png" />
+    <Resource Include="Images\endgame.png" />
+    <Resource Include="Images\fruitbasket_hover.png" />
+    <Resource Include="Images\bsplat.png" />
+    <Resource Include="Images\gsplat.png" />
+    <Resource Include="Images\osplat.png" />
+    <Resource Include="Images\rsplat.png" />
+    <Resource Include="Images\ysplat.png" />
     <Content Include="Music\poof.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

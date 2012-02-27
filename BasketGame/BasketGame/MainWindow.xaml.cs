@@ -22,7 +22,19 @@ namespace BasketGame
         public MainWindow()
         {
             InitializeComponent();
-            
+
+            this.Loaded += new RoutedEventHandler(MainWindow_Loaded);
+        }
+
+        void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            ((ViewModel)DataContext).GameEnded += new EventHandler(MainWindow_GameEnded);
+        }
+
+        void MainWindow_GameEnded(object sender, EventArgs e)
+        {
+            BackgroundMusic.Volume = 0.0;
+            EndGame.Visibility = System.Windows.Visibility.Visible;
         }
     }
 }

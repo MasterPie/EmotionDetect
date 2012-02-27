@@ -40,5 +40,6 @@ namespace BasketGame
         event EventHandler<ItemSpawnEventArgs> ItemSpawned;
         event EventHandler<ChangeLevelEventArgs> LevelFailed;
         event EventHandler<ChangeLevelEventArgs> LevelCompleted;
+        event EventHandler<DetectClient.EmotionEventArgs> NewEmotion;
     }
 }

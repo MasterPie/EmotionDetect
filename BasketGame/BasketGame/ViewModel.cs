@@ -35,8 +35,22 @@ namespace BasketGame
             gameEngine.LevelFailed += new EventHandler<ChangeLevelEventArgs>(gameEngine_LevelFailed);
             gameEngine.ScoreUpdated += new EventHandler(gameEngine_ScoreUpdated);
             gameEngine.GameStarted += new EventHandler(gameEngine_GameStarted);
+            gameEngine.GameEnded += new EventHandler(gameEngine_GameEnded);
+            gameEngine.NewEmotion += new EventHandler<DetectClient.EmotionEventArgs>(gameEngine_NewEmotion);
 
             engine.Start();
+        }
+
+        void gameEngine_GameEnded(object sender, EventArgs e)
+        {
+            if (GameEnded != null)
+                GameEnded(this, new EventArgs());
+        }
+
+        void gameEngine_NewEmotion(object sender, DetectClient.EmotionEventArgs e)
+        {
+            lastLabel = e.Emotion;
+            this.OnPropertyChanged("Emotion");
         }
 
 
@@ -49,7 +63,6 @@ namespace BasketGame
         void gameEngine_ScoreUpdated(object sender, EventArgs e)
         {
             this.OnPropertyChanged("Score");
-            //throw new NotImplementedException();
         }
 
         void gameEngine_LevelFailed(object sender, ChangeLevelEventArgs e)
@@ -74,6 +87,8 @@ namespace BasketGame
 
         public bool NewCatch(IItem item, IBasket basket)
         {
+            if (ItemCaught != null)
+                ItemCaught(this, new EventArgs());
             return engine.NewCatch(item, basket);
         }
 
@@ -124,5 +139,7 @@ namespace BasketGame
         public event EventHandler<SelectedColorChangeEventArgs> SelectedColorsChanged;
         public event EventHandler<ItemSpawnEventArgs> ItemSpawned;
         public event PropertyChangedEventHandler PropertyChanged;
+        public event EventHandler ItemCaught;
+        public event EventHandler GameEnded;
     }
 }

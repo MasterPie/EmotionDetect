@@ -51,6 +51,17 @@ namespace BasketGame
                 else
                     dropInterval = 2;
                 ItemImage.SetResourceReference(Image.SourceProperty, itemModel.AssignedColor.ToString() + "Item");
+                if (itemModel.AssignedColor.Equals(Colors.Red))
+                    Splat.Source = new BitmapImage(new Uri("pack://application:,,,/Images/rsplat.png"));
+                if (itemModel.AssignedColor.Equals(Colors.Yellow))
+                    Splat.Source = new BitmapImage(new Uri("pack://application:,,,/Images/ysplat.png"));
+                if (itemModel.AssignedColor.Equals(Colors.Orange))
+                    Splat.Source = new BitmapImage(new Uri("pack://application:,,,/Images/osplat.png"));
+                if (itemModel.AssignedColor.Equals(Colors.Blue))
+                    Splat.Source = new BitmapImage(new Uri("pack://application:,,,/Images/bsplat.png"));
+                if (itemModel.AssignedColor.Equals(Colors.Green))
+                    Splat.Source = new BitmapImage(new Uri("pack://application:,,,/Images/gsplat.png"));
+            
                 Dummy.Fill = new SolidColorBrush(itemModel.AssignedColor);
                 to = dropInterval;
                 Fall(dropInterval);
@@ -107,7 +118,7 @@ namespace BasketGame
 
         private bool HitGround()
         {
-            return (double)GetValue(Canvas.TopProperty) >= (App.Current.MainWindow.ActualHeight - 50);
+            return (double)GetValue(Canvas.TopProperty) >= (App.Current.MainWindow.ActualHeight - 25);
         }
 
         private BasketControl HitBasket()

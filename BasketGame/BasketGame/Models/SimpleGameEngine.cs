@@ -64,6 +64,7 @@ using DetectClient;
             {
                 randomColors[i++] = allColors[key];
             }
+            itemsCollected = 75;
         }
 
 
@@ -97,7 +98,11 @@ using DetectClient;
         {
             currentEmotion = e.Emotion;
             System.Console.WriteLine("CURRENT EMOTION is {0}", currentEmotion);
-            
+
+            if (NewEmotion != null)
+            {
+                NewEmotion(this, e);
+            }
             //logging?
             //TODO: log
         }
@@ -280,7 +285,6 @@ using DetectClient;
         public event EventHandler<ChangeLevelEventArgs> LevelCompleted;
         public event EventHandler GameStarted;
         public event EventHandler GameEnded;
-
-        
+        public event EventHandler<DetectClient.EmotionEventArgs> NewEmotion;
     }
 }
