@@ -21,6 +21,7 @@ namespace BasketGame
         void Cleanup();
 
         void Start();
+        void Pause();
         void Stop();
 
         bool NewCatch(IItem item, IBasket basket);
@@ -28,6 +29,8 @@ namespace BasketGame
 
         int CurrentScore { get; }
         int MaxScore { get; }
+
+        void WinGame();
 
         Color[] SelectedColors { get; }
         DetectClient.Client EmotionClassifier { set; }

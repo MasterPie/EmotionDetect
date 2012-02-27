@@ -15,6 +15,7 @@ namespace BasketGame
     using System.Windows.Media;
 
     using DetectClient;
+using System.Windows;
 
     /// <summary>
     /// TODO: Update summary.
@@ -25,20 +26,70 @@ namespace BasketGame
         private IGameEngine engine = null;
         private ILogger log = null;
 
+        private int itemsCaught = 0;
+        private int itemsDropped = 0;
+
         public ViewModel(IGameEngine gameEngine, ILogger logger)
         {
             engine = gameEngine;
             log = logger;
 
-            gameEngine.ItemSpawned += new EventHandler<ItemSpawnEventArgs>(gameEngine_ItemSpawned);
-            gameEngine.LevelCompleted += new EventHandler<ChangeLevelEventArgs>(gameEngine_LevelCompleted);
-            gameEngine.LevelFailed += new EventHandler<ChangeLevelEventArgs>(gameEngine_LevelFailed);
-            gameEngine.ScoreUpdated += new EventHandler(gameEngine_ScoreUpdated);
-            gameEngine.GameStarted += new EventHandler(gameEngine_GameStarted);
-            gameEngine.GameEnded += new EventHandler(gameEngine_GameEnded);
-            gameEngine.NewEmotion += new EventHandler<DetectClient.EmotionEventArgs>(gameEngine_NewEmotion);
+            engine.ItemSpawned += new EventHandler<ItemSpawnEventArgs>(gameEngine_ItemSpawned);
+            engine.LevelCompleted += new EventHandler<ChangeLevelEventArgs>(gameEngine_LevelCompleted);
+            engine.LevelFailed += new EventHandler<ChangeLevelEventArgs>(gameEngine_LevelFailed);
+            engine.ScoreUpdated += new EventHandler(gameEngine_ScoreUpdated);
+            engine.GameStarted += new EventHandler(gameEngine_GameStarted);
+            engine.GameEnded += new EventHandler(gameEngine_GameEnded);
+            engine.NewEmotion += new EventHandler<DetectClient.EmotionEventArgs>(gameEngine_NewEmotion);
 
             engine.Start();
+        }
+
+        private bool debugOn = false;
+        public void ToggleDebug()
+        {
+            debugOn = !debugOn;
+            this.OnPropertyChanged("ShowDebugging");
+        }
+
+        public string EmotionLetter
+        {
+            get
+            {
+                switch (lastLabel)
+                {
+                    case Label.Anger: return "A";
+                    case Label.Contempt: return "C";
+                    case Label.Disgust: return "D";
+                    case Label.Fear: return "F";
+                    case Label.Happy: return "H";
+                    case Label.Neutral: return "N";
+                    case Label.Sad: return "S";
+                    case Label.Surprise: return "U";
+                }
+                return "";
+            }
+        }
+
+        public void Pause()
+        {
+            engine.Pause();
+        }
+
+        public void WinGame()
+        {
+            engine.WinGame();
+        }
+
+        public Visibility ShowDebugging
+        {
+            get
+            {
+                if (debugOn)
+                    return Visibility.Visible;
+                else
+                    return Visibility.Collapsed;
+            }
         }
 
         void gameEngine_GameEnded(object sender, EventArgs e)
@@ -51,6 +102,7 @@ namespace BasketGame
         {
             lastLabel = e.Emotion;
             this.OnPropertyChanged("Emotion");
+            this.OnPropertyChanged("EmotionLetter");
         }
 
 
@@ -87,13 +139,45 @@ namespace BasketGame
 
         public bool NewCatch(IItem item, IBasket basket)
         {
+            if (!engine.NewCatch(item, basket))
+                return false;
+
             if (ItemCaught != null)
                 ItemCaught(this, new EventArgs());
-            return engine.NewCatch(item, basket);
+            itemsCaught++;
+            if (itemsDropped != 0)
+                itemsDropped--;
+
+            if (itemsCaught == 15)
+            {
+                itemsCaught = itemsDropped = 0;
+                if (BillyHappy != null)
+                    BillyHappy(this, new EventArgs());
+            }
+
+            return true;
         }
 
+        private bool instructional = true;
         public void ItemHitGround()
         {
+            if (ItemCaught != null)
+                ItemCaught(this, new EventArgs());
+            
+            itemsDropped++;
+            if (itemsCaught != 0)
+                itemsCaught--;
+
+            if (itemsDropped == 5)
+            {
+                itemsCaught = itemsDropped = 0;
+                /*if (instructional && BillyInstructs != null)
+                    BillyInstructs(this, new EventArgs());*/
+                if (BillyConcerned != null)
+                    BillyConcerned(this, new EventArgs());
+                //instructional = !instructional;
+            }
+
             engine.NewFall();
         }
 
@@ -141,5 +225,8 @@ namespace BasketGame
         public event PropertyChangedEventHandler PropertyChanged;
         public event EventHandler ItemCaught;
         public event EventHandler GameEnded;
+        public event EventHandler BillyConcerned;
+        public event EventHandler BillyHappy;
+        public event EventHandler BillyInstructs;
     }
 }

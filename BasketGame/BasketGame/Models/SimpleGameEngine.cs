@@ -24,6 +24,7 @@ using DetectClient;
         private IItemFactory itemFactory = null;
         private DispatcherTimer gameLoopTimer = null;
 
+        private const int MAX_COLLECTION = 80;
         protected const int STREAK_THRESHOLD = 15;
         protected int negativeStreak = 0;
         protected int positiveStreak = 0;
@@ -64,7 +65,6 @@ using DetectClient;
             {
                 randomColors[i++] = allColors[key];
             }
-            itemsCollected = 75;
         }
 
 
@@ -258,7 +258,7 @@ using DetectClient;
 
         private void CheckWinGame()
         {
-            if (itemsCollected >= 80)
+            if (itemsCollected >= MAX_COLLECTION)
             {
                 gameLoopTimer.Stop();
                 if (GameEnded != null)
@@ -286,5 +286,20 @@ using DetectClient;
         public event EventHandler GameStarted;
         public event EventHandler GameEnded;
         public event EventHandler<DetectClient.EmotionEventArgs> NewEmotion;
+
+        public void WinGame()
+        {
+            itemsCollected = MAX_COLLECTION;
+            CheckWinGame();
+        }
+
+
+        public void Pause()
+        {
+            if (gameLoopTimer.IsEnabled)
+                gameLoopTimer.Stop();
+            else
+                gameLoopTimer.Start();
+        }
     }
 }
