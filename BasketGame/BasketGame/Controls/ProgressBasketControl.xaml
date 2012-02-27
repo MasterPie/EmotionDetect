@@ -16,5 +16,10 @@
                 <TranslateTransform Y="{Binding Score, Converter={StaticResource scoreConverter}, ConverterParameter=50}"/>
             </Image.RenderTransform>
         </Image>
+        <Image Source="pack://application:,,,/Images/fruitbasket_hover.png" Width="100" Height="100" Margin="0 380 0 0" x:Name="BasketFlash" Visibility="Hidden">
+            <Image.RenderTransform>
+                <TranslateTransform Y="{Binding Score, Converter={StaticResource scoreConverter}, ConverterParameter=50}"/>
+            </Image.RenderTransform>
+        </Image>
     </Grid>
 </UserControl>

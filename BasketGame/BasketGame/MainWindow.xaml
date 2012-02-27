@@ -6,21 +6,23 @@
     <Grid>
         <Image Source="pack://application:,,,/Images/background.png" Width="1920" Height="1080" Stretch="Fill"/>
         <local:BalloonControl HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-50 -50 0 0"/>
-        <!--<TextBlock Text="{Binding Emotion}" FontSize="32" VerticalAlignment="Bottom" Margin="100 0 0 0"/>-->
+        <TextBlock Text="{Binding Emotion}" FontSize="32" VerticalAlignment="Bottom" Margin="100 0 0 0"/>
         <TextBlock Text="{Binding Score}" FontSize="32" VerticalAlignment="Bottom"/>
         <local:ProgressBasketControl HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 250 20 0"/>
         <local:GameContainerControl Width="1300" HorizontalAlignment="Center"/>
-        <MediaElement Volume="0.3" x:Name="BackgroundMusic"/>
+        <MediaElement Volume="0.2" x:Name="BackgroundMusic" LoadedBehavior="Manual"/>
+        <local:EndGameSplashControl x:Name="EndGame" Visibility="Hidden"/>
         <Grid.Triggers>
             <EventTrigger RoutedEvent="Grid.Loaded">
                 <EventTrigger.Actions>
                     <BeginStoryboard>
                         <Storyboard>
-                            <MediaTimeline Source="Music/gameMusic.mp3" Storyboard.TargetName="BackgroundMusic" RepeatBehavior="Forever"/>
+                            <MediaTimeline Source="Music/gameMusic.mp3" Storyboard.TargetName="BackgroundMusic"/>
                         </Storyboard>
                     </BeginStoryboard>
                 </EventTrigger.Actions>
             </EventTrigger>
         </Grid.Triggers>
+        
     </Grid>
 </Window>

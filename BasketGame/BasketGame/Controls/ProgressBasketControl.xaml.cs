@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace BasketGame
 {
@@ -19,9 +20,35 @@ namespace BasketGame
     /// </summary>
     public partial class ProgressBasketControl : UserControl
     {
+        private DispatcherTimer hoverFlashTimer;
         public ProgressBasketControl()
         {
             InitializeComponent();
+
+            hoverFlashTimer = new DispatcherTimer();
+            hoverFlashTimer.Interval = TimeSpan.FromSeconds(1);
+            hoverFlashTimer.Tick += new EventHandler(hoverFlashTimer_Tick);
+
+            this.Loaded += new RoutedEventHandler(ProgressBasketControl_Loaded);
+        }
+
+        void ProgressBasketControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            ((ViewModel)DataContext).ItemCaught += new EventHandler(FallingItemControl_ItemCaught);
+        }
+
+        void hoverFlashTimer_Tick(object sender, EventArgs e)
+        {
+            hoverFlashTimer.Stop();
+            BasketFlash.Visibility = System.Windows.Visibility.Hidden;
+        }
+
+        void FallingItemControl_ItemCaught(object sender, EventArgs e)
+        {
+            BasketFlash.Visibility = System.Windows.Visibility.Visible;
+
+            if(!hoverFlashTimer.IsEnabled)
+                hoverFlashTimer.Start();
         }
     }
 }
