@@ -34,7 +34,10 @@ namespace BasketGame
 
         void ProgressBasketControl_Loaded(object sender, RoutedEventArgs e)
         {
+            string progress_dir = ((ViewModel)DataContext).ThemeRootDirectory + "/ProgressBar/";
             ((ViewModel)DataContext).ItemCaught += new EventHandler(FallingItemControl_ItemCaught);
+            this.MainBasket.Source = new BitmapImage(new Uri("pack://application:,,,/Images/" + progress_dir + "mainbasket.png"));
+            this.BasketFlash.Source = new BitmapImage(new Uri("pack://application:,,,/Images/" + progress_dir + "mainbasket_hover.png"));
         }
 
         void hoverFlashTimer_Tick(object sender, EventArgs e)

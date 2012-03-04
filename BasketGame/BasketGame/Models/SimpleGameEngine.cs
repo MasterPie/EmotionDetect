@@ -24,12 +24,15 @@ using DetectClient;
         private IItemFactory itemFactory = null;
         private DispatcherTimer gameLoopTimer = null;
 
+        private string loggingSessionID = "";
+
         private const int MAX_COLLECTION = 80;
         protected const int STREAK_THRESHOLD = 15;
         protected int negativeStreak = 0;
         protected int positiveStreak = 0;
-        private int itemsCollected = 0;
+        protected int itemsCollected = 0;
         private int maxItemScore = 0;
+        private int mismatches = 0;
 
         private double[] spawnLocations = null;
         private Color[] spawnVariety = null;
@@ -40,6 +43,8 @@ using DetectClient;
 
         public SimpleGameEngine()
         {
+            loggingSessionID = DateTime.Now.ToString("yyyy-MM-d_HHmm");
+
             spawnRandomizer = new Random();
 
             gameLoopTimer = new DispatcherTimer();
@@ -150,7 +155,10 @@ using DetectClient;
         public bool NewCatch(IItem item, IBasket basket)
         {
             if (item.AssignedColor != basket.Color)
+            {
+                mismatches++;
                 return false;
+            }
 
             IncreaseScore();
 
@@ -270,7 +278,7 @@ using DetectClient;
 
         public string AssessState()
         {
-            return "";
+            return currentEmotion + "\t" + currentLevel.ID + "\t" + CurrentScore  + "\t" + mismatches; //TODO: Figure out what to track EMOTION LEVEL SCORE MISMATCH
         }
 
         public void Cleanup()
@@ -300,6 +308,12 @@ using DetectClient;
                 gameLoopTimer.Stop();
             else
                 gameLoopTimer.Start();
+        }
+
+
+        public string UniqueSessionID
+        {
+            get { return loggingSessionID; }
         }
     }
 }

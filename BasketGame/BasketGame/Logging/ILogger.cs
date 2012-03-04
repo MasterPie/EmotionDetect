@@ -17,7 +17,6 @@ namespace BasketGame
     public interface ILogger
     {
         void Start(ILoggable observable);
-        void WriteLog();
         void Stop();
     }
 }

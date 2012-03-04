@@ -73,8 +73,11 @@ namespace BasketGame
                 ((ViewModel)DataContext).WinGame();
             if(e.Key == Key.P || e.Key == Key.F3)
                 ((ViewModel)DataContext).Pause();
-            if(e.Key == Key.Q)
+            if (e.Key == Key.Q)
+            {
+                ((ViewModel)DataContext).Cleanup();
                 this.Close();
+            }
         }
     }
 }

@@ -216,25 +216,25 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\orange.png" />
-    <Resource Include="Images\pear.png" />
+    <Resource Include="Images\Fruit\Items\orange.png" />
+    <Resource Include="Images\Fruit\Items\green.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\apple.png" />
+    <Resource Include="Images\Fruit\Items\red.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\background.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\banana.png" />
-    <Resource Include="Images\blueberries.png" />
+    <Resource Include="Images\Fruit\Items\yellow.png" />
+    <Resource Include="Images\Fruit\Items\blue.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\hotairballoon.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\hotairballoonthumb.png" />
-    <Resource Include="Images\mainbasket.png" />
+    <Resource Include="Images\Fruit\ProgressBar\mainbasket.png" />
     <Resource Include="Images\rope.png" />
   </ItemGroup>
   <ItemGroup>
@@ -253,7 +253,7 @@
     </Content>
     <Resource Include="Images\clouds.png" />
     <Resource Include="Images\endgame.png" />
-    <Resource Include="Images\fruitbasket_hover.png" />
+    <Resource Include="Images\Fruit\ProgressBar\mainbasket_hover.png" />
     <Resource Include="Images\bsplat.png" />
     <Resource Include="Images\gsplat.png" />
     <Resource Include="Images\osplat.png" />
@@ -270,6 +270,10 @@
     <Content Include="Music\gameMusic.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Images\Vegetable\Items\" />
+    <Folder Include="Images\Vegetable\ProgressBar\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

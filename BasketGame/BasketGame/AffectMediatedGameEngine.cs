@@ -20,13 +20,15 @@ namespace BasketGame
     {
         protected override void gameLoopTimer_Tick(object sender, EventArgs e)
         {
-            if (positiveStreak >= STREAK_THRESHOLD && (currentEmotion == Label.Happy || currentEmotion == Label.Neutral))
+            if (positiveStreak >= STREAK_THRESHOLD && !(currentEmotion == Label.Anger || currentEmotion == Label.Disgust))
                 AdvanceLevel();
-            else if (negativeStreak >= STREAK_THRESHOLD || currentEmotion == Label.Sad)
+            else if (negativeStreak >= STREAK_THRESHOLD || (currentEmotion == Label.Surprise || currentEmotion == Label.Anger || currentEmotion == Label.Disgust))
             {
-                //if (currentEmotion == Label.Sad)
-                //    ite - 15;
-                //TODO: have to decrease score count too because the score was not decreased
+                if((currentEmotion == Label.Surprise || currentEmotion == Label.Anger || currentEmotion == Label.Disgust) && 
+                    this.CurrentScore >= 15)
+                {
+                    this.itemsCollected = (this.itemsCollected - 15);
+                }
                 RegressLevel();
             }
 

@@ -10,25 +10,66 @@ namespace BasketGame
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
+    using System.Timers;
+    using System.IO;
 
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
     public class TimeBasedLogger : ILogger
     {
-        public void Start(ILoggable observable)
+        private Timer logWriteTimer;
+        private StreamWriter fileWriter;
+        private ILoggable provider;
+
+        private const string LOG_DIRECTORY = "Log";
+        
+        public TimeBasedLogger()
         {
-            throw new NotImplementedException();
+            logWriteTimer = new Timer();
+            logWriteTimer.Interval = 1000;
+            logWriteTimer.Elapsed += new ElapsedEventHandler(logWriteTimer_Elapsed);
         }
 
-        public void WriteLog()
+        public void Start(ILoggable observable)
         {
-            throw new NotImplementedException();
+            provider = observable;
+            string file_name = AppDomain.CurrentDomain.BaseDirectory + "\\" + LOG_DIRECTORY + "\\" + 
+                observable.UniqueSessionID + "\\" + DateTime.Now.ToString("yyyy-MM-d_HHmmss") + ".txt";
+
+            if(!Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\" + LOG_DIRECTORY))
+            {
+                Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "\\" + LOG_DIRECTORY);
+            }
+
+            if (!Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\" + LOG_DIRECTORY + "\\" +
+                observable.UniqueSessionID))
+            {
+                Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "\\" + LOG_DIRECTORY + "\\" +
+                observable.UniqueSessionID);
+            }
+
+            fileWriter = new StreamWriter(file_name,true);
+            logWriteTimer.Start();
+        }
+
+        void logWriteTimer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            Write(provider.AssessState());
+        }
+
+        private void Write(string message)
+        {
+            string entry_time = DateTime.Now.ToString("HH:mm:ss");
+            fileWriter.WriteLine(entry_time + "\t" + message);
+            fileWriter.Flush();
         }
 
         public void Stop()
         {
-            throw new NotImplementedException();
+            logWriteTimer.Stop();
+            Write("");
+            fileWriter.Close();
         }
     }
 }
