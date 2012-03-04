@@ -118,7 +118,7 @@ namespace BasketGame
 
         private bool HitGround()
         {
-            return (double)GetValue(Canvas.TopProperty) >= (App.Current.MainWindow.ActualHeight - 25);
+            return (double)GetValue(Canvas.TopProperty) >= (App.Current.MainWindow.ActualHeight - 10);
         }
 
         private BasketControl HitBasket()

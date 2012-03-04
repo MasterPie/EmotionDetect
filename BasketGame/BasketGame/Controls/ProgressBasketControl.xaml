@@ -11,12 +11,12 @@
     <Grid Height="600">
         <Image Source="pack://application:,,,/Images/rope.png" Width="116" Height="500" VerticalAlignment="Top" Margin="0 50 0 0"/>
         <Image Source="pack://application:,,,/Images/hotairballoonthumb.png" Width="120" Height="135" VerticalAlignment="Top"/>
-        <Image Source="pack://application:,,,/Images/mainbasket.png" Width="100" Height="100" Margin="0 380 0 0">
+        <Image Width="100" Height="100" Margin="0 380 0 0" x:Name="MainBasket">
             <Image.RenderTransform>
                 <TranslateTransform Y="{Binding Score, Converter={StaticResource scoreConverter}, ConverterParameter=50}"/>
             </Image.RenderTransform>
         </Image>
-        <Image Source="pack://application:,,,/Images/fruitbasket_hover.png" Width="100" Height="100" Margin="0 380 0 0" x:Name="BasketFlash" Visibility="Hidden">
+        <Image Width="100" Height="100" Margin="0 380 0 0" x:Name="BasketFlash" Visibility="Hidden">
             <Image.RenderTransform>
                 <TranslateTransform Y="{Binding Score, Converter={StaticResource scoreConverter}, ConverterParameter=50}"/>
             </Image.RenderTransform>

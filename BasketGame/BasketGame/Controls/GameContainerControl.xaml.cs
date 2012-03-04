@@ -27,7 +27,7 @@ namespace BasketGame
             InitializeComponent();
             twoClickDrag = Properties.Settings.Default.TwoClickDrag;
 
-            LoadImages();
+            
 
             baskets = new List<BasketControl>();
             defaultBasketLocations = new Dictionary<BasketControl, double>();
@@ -36,11 +36,12 @@ namespace BasketGame
 
         void LoadImages()
         {
-            Application.Current.Resources.Add(Colors.Red.ToString() + "Item", new BitmapImage(new Uri(@"pack://application:,,,/Images/apple.png", UriKind.RelativeOrAbsolute)));
-            Application.Current.Resources.Add(Colors.Blue.ToString() + "Item", new BitmapImage(new Uri(@"pack://application:,,,/Images/blueberries.png", UriKind.RelativeOrAbsolute)));
-            Application.Current.Resources.Add(Colors.Green.ToString() + "Item", new BitmapImage(new Uri(@"pack://application:,,,/Images/pear.png", UriKind.RelativeOrAbsolute)));
-            Application.Current.Resources.Add(Colors.Yellow.ToString() + "Item", new BitmapImage(new Uri(@"pack://application:,,,/Images/banana.png", UriKind.RelativeOrAbsolute)));
-            Application.Current.Resources.Add(Colors.Orange.ToString() + "Item", new BitmapImage(new Uri(@"pack://application:,,,/Images/orange.png", UriKind.RelativeOrAbsolute)));
+            string itemDirectory = ((ViewModel)DataContext).ThemeRootDirectory + "/Items/";
+            Application.Current.Resources.Add(Colors.Red.ToString() + "Item", new BitmapImage(new Uri(@"pack://application:,,,/Images/" + itemDirectory + "red.png", UriKind.RelativeOrAbsolute)));
+            Application.Current.Resources.Add(Colors.Blue.ToString() + "Item", new BitmapImage(new Uri(@"pack://application:,,,/Images/" + itemDirectory + "blue.png", UriKind.RelativeOrAbsolute)));
+            Application.Current.Resources.Add(Colors.Green.ToString() + "Item", new BitmapImage(new Uri(@"pack://application:,,,/Images/" + itemDirectory + "green.png", UriKind.RelativeOrAbsolute)));
+            Application.Current.Resources.Add(Colors.Yellow.ToString() + "Item", new BitmapImage(new Uri(@"pack://application:,,,/Images/" + itemDirectory + "yellow.png", UriKind.RelativeOrAbsolute)));
+            Application.Current.Resources.Add(Colors.Orange.ToString() + "Item", new BitmapImage(new Uri(@"pack://application:,,,/Images/" + itemDirectory + "orange.png", UriKind.RelativeOrAbsolute)));
 
 
             Application.Current.Resources.Add(Colors.Red.ToString() + "Basket", new BitmapImage(new Uri(@"pack://application:,,,/Images/redbasket.png", UriKind.RelativeOrAbsolute)));
@@ -52,6 +53,7 @@ namespace BasketGame
 
         void GameContainerControl_Loaded(object sender, RoutedEventArgs e)
         {
+            LoadImages();
             Basket basket = new Basket() { Color = Colors.Red };
             Basket basket2 = new Basket() { Color = Colors.Blue };
             Basket basket3 = new Basket() { Color = Colors.Orange };

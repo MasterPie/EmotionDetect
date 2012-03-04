@@ -17,5 +17,6 @@ namespace BasketGame
     public interface ILoggable
     {
         String AssessState();
+        String UniqueSessionID { get; }
     }
 }

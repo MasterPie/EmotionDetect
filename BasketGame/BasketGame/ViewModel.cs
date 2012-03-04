@@ -15,14 +15,13 @@ namespace BasketGame
     using System.Windows.Media;
 
     using DetectClient;
-using System.Windows;
+    using System.Windows;
 
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
     public class ViewModel : INotifyPropertyChanged
     {
-
         private IGameEngine engine = null;
         private ILogger log = null;
 
@@ -43,6 +42,7 @@ using System.Windows;
             engine.NewEmotion += new EventHandler<DetectClient.EmotionEventArgs>(gameEngine_NewEmotion);
 
             engine.Start();
+            logger.Start(engine);
         }
 
         private bool debugOn = false;
@@ -206,8 +206,17 @@ using System.Windows;
             }
         }
 
+        public string ThemeRootDirectory
+        {
+            get
+            {
+                return "Fruit";
+            }
+        }
+
         public void Cleanup()
         {
+            log.Stop();
             engine.Stop();
             engine.Cleanup();
         }

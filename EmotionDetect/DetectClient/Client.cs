@@ -135,7 +135,7 @@ namespace DetectClient
         private Label sustainedEmotion;
         private void CheckSustained(Label currentEmotion)
         {
-            if (window.Count == 10)
+            if (window.Count == 30)
                 window.RemoveAt(0);
 
             //TODO: check for latency
