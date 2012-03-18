@@ -42,7 +42,7 @@ namespace BasketGame
             engine.NewEmotion += new EventHandler<DetectClient.EmotionEventArgs>(gameEngine_NewEmotion);
 
             engine.Start();
-            logger.Start(engine);
+            log.Start(engine);
         }
 
         private bool debugOn = false;
