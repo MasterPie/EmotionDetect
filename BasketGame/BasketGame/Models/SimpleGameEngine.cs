@@ -43,20 +43,29 @@ using DetectClient;
 
         public SimpleGameEngine()
         {
+            gameLoopTimer = new DispatcherTimer();
+            gameLoopTimer.Tick += new EventHandler(gameLoopTimer_Tick);
+            gameLoopTimer.Interval = TimeSpan.FromMilliseconds(1500);   
+        }
+
+
+        public void Initialize()
+        {
+            
+        }
+
+        private void Setup()
+        {
             loggingSessionID = DateTime.Now.ToString("yyyy-MM-d_HHmm");
 
             spawnRandomizer = new Random();
-
-            gameLoopTimer = new DispatcherTimer();
-            gameLoopTimer.Tick += new EventHandler(gameLoopTimer_Tick);
-            gameLoopTimer.Interval = TimeSpan.FromMilliseconds(1500);
 
             spawnLocations = new double[1];
             spawnVariety = new Color[1];
             spawnVariety[0] = Colors.Red; //set to some default value
 
             System.Random rand = new Random();
-            Dictionary<int,Color> allColors = new Dictionary<int,Color>();
+            Dictionary<int, Color> allColors = new Dictionary<int, Color>();
             allColors[rand.Next()] = Colors.Red;
             allColors[rand.Next()] = Colors.Green;
             allColors[rand.Next()] = Colors.Yellow;
@@ -66,16 +75,10 @@ using DetectClient;
             randomColors = new Color[allColors.Keys.Count];
 
             int i = 0;
-            foreach (int key in allColors.Keys.OrderBy(x=>x))
+            foreach (int key in allColors.Keys.OrderBy(x => x))
             {
                 randomColors[i++] = allColors[key];
             }
-        }
-
-
-        public void Initialize()
-        {
-            
         }
 
         public ILevelManager LevelManager
@@ -116,7 +119,7 @@ using DetectClient;
         {
             if (levelManager == null || itemFactory == null)
                 throw new ArgumentNullException("Please set an ILevelManager and an IItemFactory before starting the engine");
-
+            Setup();
             levelManager.Reset();
             AdvanceLevel();
             if (GameStarted != null)

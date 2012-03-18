@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Diagnostics;
 
 namespace BasketGame
 {
@@ -73,6 +74,11 @@ namespace BasketGame
                 ((ViewModel)DataContext).WinGame();
             if(e.Key == Key.P || e.Key == Key.F3)
                 ((ViewModel)DataContext).Pause();
+            if (e.Key == Key.S || e.Key == Key.R)
+            {
+                Process.Start(Application.ResourceAssembly.Location);
+                Application.Current.Shutdown();
+            }
             if (e.Key == Key.Q)
             {
                 ((ViewModel)DataContext).Cleanup();
