@@ -118,7 +118,7 @@ namespace BasketGame
 
         private bool HitGround()
         {
-            return (double)GetValue(Canvas.TopProperty) >= (App.Current.MainWindow.ActualHeight - 10);
+            return (double)GetValue(Canvas.TopProperty) >= (App.Current.MainWindow.ActualHeight - 25);
         }
 
         private BasketControl HitBasket()
@@ -134,7 +134,9 @@ namespace BasketGame
                     
                     Point p_to = basket.TranslatePoint(new Point(), (UIElement)this.Parent);
 
-                    if (Math.Abs(p.X - p_to.X ) - basket.ActualWidth <= 2 && Math.Abs(p.Y - p_to.Y ) - basket.ActualHeight /(3/2) <= 2)
+                    if (Math.Abs(p.X - p_to.X ) - basket.ActualWidth <= 2 && 
+                        Math.Abs(p.Y - p_to.Y ) - basket.ActualHeight /(3/2) <= 2 &&
+                        basket.IsMouseCaptured)
                     {
                         return basket;
                     }

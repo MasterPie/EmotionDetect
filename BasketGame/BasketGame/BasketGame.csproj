@@ -74,16 +74,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="AbstractThemeBuilder.cs" />
     <Compile Include="AffectMediatedGameEngine.cs" />
-    <Compile Include="AnimalThemeBuilder.cs" />
+    <Compile Include="BasicItemFactory.cs" />
     <Compile Include="Controls\BalloonControl.xaml.cs">
       <DependentUpon>BalloonControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\EndGameSplashControl.xaml.cs">
       <DependentUpon>EndGameSplashControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ProgressFlagControl.xaml.cs">
+      <DependentUpon>ProgressFlagControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Converters\ScoreBasketHeightConverter.cs" />
+    <Compile Include="Converters\ScoreBasketWidthConverter.cs" />
     <Compile Include="Models\Basket.cs" />
     <Compile Include="Models\BasicLevel.cs" />
     <Compile Include="Controls\BasketControl.xaml.cs">
@@ -92,11 +95,9 @@
     <Compile Include="Controls\FallingItemControl.xaml.cs">
       <DependentUpon>FallingItemControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="FruitThemeBuilder.cs" />
     <Compile Include="Controls\GameContainerControl.xaml.cs">
       <DependentUpon>GameContainerControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="FruitItemFactory.cs" />
     <Compile Include="IBasket.cs" />
     <Compile Include="IGameEngine.cs" />
     <Compile Include="IItem.cs" />
@@ -135,6 +136,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\GameContainerControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ProgressFlagControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -239,6 +244,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\goodjob.png" />
+    <Resource Include="Images\sadface.png" />
+    <Resource Include="Images\flag.png" />
+    <Resource Include="Images\rope_horizontal.png" />
     <Content Include="Music\keepitup.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

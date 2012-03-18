@@ -26,8 +26,8 @@ using DetectClient;
 
         private string loggingSessionID = "";
 
-        private const int MAX_COLLECTION = 80;
-        protected const int STREAK_THRESHOLD = 15;
+        private const int MAX_COLLECTION = 70;
+        protected const int STREAK_THRESHOLD = 12;
         protected int negativeStreak = 0;
         protected int positiveStreak = 0;
         protected int itemsCollected = 0;
@@ -311,9 +311,15 @@ using DetectClient;
         }
 
 
-        public string UniqueSessionID
+        public virtual string UniqueSessionID
         {
             get { return loggingSessionID; }
+        }
+
+
+        public int CurrentLevel
+        {
+            get { return this.currentLevel.ID; }
         }
     }
 }

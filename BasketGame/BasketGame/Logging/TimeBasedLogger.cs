@@ -67,9 +67,12 @@ namespace BasketGame
 
         public void Stop()
         {
-            logWriteTimer.Stop();
-            Write("");
-            fileWriter.Close();
+            if (logWriteTimer.Enabled)
+            {
+                logWriteTimer.Stop();
+                fileWriter.WriteLine();
+                fileWriter.Close();
+            }
         }
     }
 }

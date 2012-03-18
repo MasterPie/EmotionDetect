@@ -78,6 +78,7 @@ namespace BasketGame
 
         public void WinGame()
         {
+            log.Stop();
             engine.WinGame();
         }
 
@@ -96,6 +97,7 @@ namespace BasketGame
         {
             if (GameEnded != null)
                 GameEnded(this, new EventArgs());
+            log.Stop();
         }
 
         void gameEngine_NewEmotion(object sender, DetectClient.EmotionEventArgs e)
@@ -120,6 +122,7 @@ namespace BasketGame
         void gameEngine_LevelFailed(object sender, ChangeLevelEventArgs e)
         {
             System.Console.WriteLine("Going down one level!");
+            this.OnPropertyChanged("CurrentLevel");
             if (SelectedColorsChanged != null)
                 SelectedColorsChanged(this, new SelectedColorChangeEventArgs() { SelectedColors = engine.SelectedColors });
         }
@@ -127,6 +130,7 @@ namespace BasketGame
         void gameEngine_LevelCompleted(object sender, ChangeLevelEventArgs e)
         {
             System.Console.WriteLine("Going up one level!");
+            this.OnPropertyChanged("CurrentLevel");
             if (SelectedColorsChanged != null)
                 SelectedColorsChanged(this, new SelectedColorChangeEventArgs() {SelectedColors = engine.SelectedColors });
         }
@@ -179,6 +183,15 @@ namespace BasketGame
             }
 
             engine.NewFall();
+        }
+
+        public int currentLevel;
+        public int CurrentLevel
+        {
+            get
+            {
+                return engine.CurrentLevel;
+            }
         }
 
         private Label lastLabel;

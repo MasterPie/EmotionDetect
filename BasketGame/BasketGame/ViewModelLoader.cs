@@ -21,7 +21,6 @@ namespace BasketGame
         static ViewModel viewModelStatic;
 
         static DetectClient.Client emotionClassifer = null;
-        static AbstractThemeBuilder themeBuilder = null;
         static IGameEngine gameEngine = null;
         static ILogger logger = null;
 
@@ -33,18 +32,23 @@ namespace BasketGame
                 .Metadata.DefaultValue;
 
             emotionClassifer = new DetectClient.Client();
-            themeBuilder = new FruitThemeBuilder();
             gameEngine = new AffectMediatedGameEngine();
             logger = new TimeBasedLogger();
-            gameEngine.ItemFactory = themeBuilder.GetItemFactory();
+            gameEngine.ItemFactory = new BasicItemFactory();
             gameEngine.EmotionClassifier = emotionClassifer;
 
 
+            //ILevel levelOne = new BasicLevel() { ID = 1, LocationRandomness = 2, VarietyRandomness = 2, Speed = 3 };
+            //ILevel levelTwo = new BasicLevel() { ID = 2, LocationRandomness = 10, VarietyRandomness = 3, Speed = 5 };
+            //ILevel levelThree = new BasicLevel() { ID = 3, LocationRandomness = 10, VarietyRandomness = 4, Speed = 5 };
+            //ILevel levelFour = new BasicLevel() { ID = 4, LocationRandomness = 10, VarietyRandomness = 5, Speed = 5 };
+            //ILevel levelFive = new BasicLevel() { ID = 5, LocationRandomness = 15, VarietyRandomness = 5, Speed = 5 };
+
             ILevel levelOne = new BasicLevel() { ID = 1, LocationRandomness = 2, VarietyRandomness = 2, Speed = 3 };
-            ILevel levelTwo = new BasicLevel() { ID = 2, LocationRandomness = 10, VarietyRandomness = 3, Speed = 5 };
-            ILevel levelThree = new BasicLevel() { ID = 3, LocationRandomness = 10, VarietyRandomness = 4, Speed = 5 };
-            ILevel levelFour = new BasicLevel() { ID = 4, LocationRandomness = 10, VarietyRandomness = 5, Speed = 5 };
-            ILevel levelFive = new BasicLevel() { ID = 5, LocationRandomness = 10, VarietyRandomness = 5, Speed = 5 };
+            ILevel levelTwo = new BasicLevel() { ID = 2, LocationRandomness = 10, VarietyRandomness = 3, Speed = 3 };
+            ILevel levelThree = new BasicLevel() { ID = 3, LocationRandomness = 10, VarietyRandomness = 4, Speed = 3 };
+            ILevel levelFour = new BasicLevel() { ID = 4, LocationRandomness = 10, VarietyRandomness = 5, Speed = 3 };
+            ILevel levelFive = new BasicLevel() { ID = 5, LocationRandomness = 15, VarietyRandomness = 5, Speed = 4 };
 
             ILevelManager levelManager = new OrderedLevelManager();
             levelManager.LoadLevels(new List<ILevel>(){levelOne, levelTwo, levelThree, levelFour, levelFive});
