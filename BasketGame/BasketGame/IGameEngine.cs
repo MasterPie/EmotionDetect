@@ -29,6 +29,7 @@ namespace BasketGame
 
         int CurrentScore { get; }
         int MaxScore { get; }
+        int CurrentLevel { get; }
 
         void WinGame();
 

@@ -8,8 +8,10 @@
         <local:BalloonControl HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-50 -50 0 0"/>
         <TextBlock Text="{Binding Emotion}" FontSize="32" VerticalAlignment="Bottom" Margin="100 0 0 0" Visibility="{Binding ShowDebugging}"/>
         <TextBlock Text="{Binding Score}" FontSize="32" VerticalAlignment="Bottom" Visibility="{Binding ShowDebugging}"/>
-        <TextBlock Text="{Binding EmotionLetter}" VerticalAlignment="Bottom"/>
-        <local:ProgressBasketControl HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 250 20 0"/>
+        <TextBlock Text="{Binding CurrentLevel}" FontSize="32" VerticalAlignment="Bottom" Margin="50 0 0 0" Visibility="{Binding ShowDebugging}"/>
+        <TextBlock Text="{Binding EmotionLetter}" FontSize="20" VerticalAlignment="Bottom"/>
+        <!--<local:ProgressBasketControl HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 250 20 0"/>-->
+        <local:ProgressFlagControl VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
         <local:GameContainerControl Width="1300" HorizontalAlignment="Center"/>
         <MediaElement Volume="0.1" x:Name="BackgroundMusic" LoadedBehavior="Manual"/>
         <local:EndGameSplashControl x:Name="EndGame" Visibility="Hidden"/>

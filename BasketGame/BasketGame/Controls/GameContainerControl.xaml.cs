@@ -106,7 +106,7 @@ namespace BasketGame
             {
                 BasketControl basketControl = new BasketControl() { BasketModel = basket};
                 FallingRegion.Children.Add(basketControl);
-                Canvas.SetBottom(basketControl, 50);
+                Canvas.SetBottom(basketControl, 80);
                 Canvas.SetLeft(basketControl, leftOffset);
                 Canvas.SetZIndex(basketControl, 1);
                 baskets.Add(basketControl);
@@ -186,7 +186,7 @@ namespace BasketGame
         {
             Canvas canvas = (Canvas)basket.Parent;
             canvas.Children.Remove(basket);
-            Canvas.SetTop(basket, App.Current.MainWindow.ActualHeight - basket.Height - 50);
+            Canvas.SetTop(basket, App.Current.MainWindow.ActualHeight - basket.Height - 80);
             Canvas.SetLeft(basket, defaultBasketLocations[basket]);
             canvas.Children.Add(basket);
         }
