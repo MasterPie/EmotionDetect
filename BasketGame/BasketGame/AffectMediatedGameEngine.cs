@@ -18,21 +18,49 @@ namespace BasketGame
     /// </summary>
     public class AffectMediatedGameEngine : SimpleGameEngine
     {
+        private int checkRegressTime = 0;
+
         protected override void gameLoopTimer_Tick(object sender, EventArgs e)
         {
-            if (positiveStreak >= STREAK_THRESHOLD && !(currentEmotion == Label.Anger || currentEmotion == Label.Disgust))
+            if (positiveStreak >= STREAK_THRESHOLD && Positive())
                 AdvanceLevel();
-            else if (negativeStreak >= STREAK_THRESHOLD || (/*currentEmotion == Label.Surprise || */currentEmotion == Label.Anger || currentEmotion == Label.Disgust))
+            else if (negativeStreak >= STREAK_THRESHOLD)
             {
-                if((/*currentEmotion == Label.Surprise || */currentEmotion == Label.Anger || currentEmotion == Label.Disgust) && 
-                    this.CurrentScore >= 15)
-                {
-                    this.itemsCollected = (this.itemsCollected - 15);
-                }
+                checkRegressTime = 5;
                 RegressLevel();
             }
+            else if (Negative())
+            {
+                if (checkRegressTime <= 0)
+                {
+                    lock (this.scoreLock)
+                    {
+                        if (this.CurrentScore >= 15)
+                        {
+                            this.itemsCollected = (this.itemsCollected - 15);
+                        }
+                    }
+                    RegressLevel();
+                    checkRegressTime = 5;
+                }
+                else
+                    checkRegressTime--;
+            }
+
+            if (Positive())
+                checkRegressTime = 0;
 
             SpawnItem();
+        }
+
+        private bool Negative()
+        {
+            return (currentEmotion == Label.Surprise || currentEmotion == Label.Anger || currentEmotion == Label.Disgust || currentEmotion == Label.Fear);
+        }
+
+        private bool Positive()
+        {
+            return !Negative();
         }
 
         public override string UniqueSessionID
