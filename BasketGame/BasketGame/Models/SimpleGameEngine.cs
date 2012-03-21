@@ -38,7 +38,7 @@ using DetectClient;
         private Color[] spawnVariety = null;
         private Color[] randomColors = null;
 
-        private Object scoreLock = new Object();
+        protected Object scoreLock = new Object();
         private System.Random spawnRandomizer;
 
         public SimpleGameEngine()
@@ -265,6 +265,7 @@ using DetectClient;
             for (int i = 0; i < spawnVariety.Length; i++)
                 spawnVariety[i] = randomColors[i];
 
+            gameLoopTimer.Interval = TimeSpan.FromMilliseconds(-375 * currentLevel.Speed + 3375);
         }
 
         private void CheckWinGame()
