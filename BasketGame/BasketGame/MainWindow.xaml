@@ -13,7 +13,7 @@
         <!--<local:ProgressBasketControl HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 250 20 0"/>-->
         <local:ProgressFlagControl VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
         <local:GameContainerControl Width="1300" HorizontalAlignment="Center"/>
-        <MediaElement Volume="0.1" x:Name="BackgroundMusic" LoadedBehavior="Manual"/>
+        <MediaElement Volume="0.01" x:Name="BackgroundMusic" LoadedBehavior="Manual"/>
         <local:EndGameSplashControl x:Name="EndGame" Visibility="Hidden"/>
         <Grid.Triggers>
             <EventTrigger RoutedEvent="Grid.Loaded">

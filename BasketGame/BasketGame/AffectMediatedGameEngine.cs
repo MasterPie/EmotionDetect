@@ -22,7 +22,7 @@ namespace BasketGame
 
         protected override void gameLoopTimer_Tick(object sender, EventArgs e)
         {
-            if (positiveStreak >= STREAK_THRESHOLD && Positive())
+            if (positiveStreak >= STREAK_THRESHOLD) //no longer requiring positiveness to win
                 AdvanceLevel();
             else if (negativeStreak >= STREAK_THRESHOLD)
             {
@@ -35,9 +35,9 @@ namespace BasketGame
                 {
                     lock (this.scoreLock)
                     {
-                        if (this.CurrentScore >= 15)
+                        if (this.CurrentScore >= STREAK_THRESHOLD)
                         {
-                            this.itemsCollected = (this.itemsCollected - 15);
+                            this.itemsCollected = STREAK_THRESHOLD * (CurrentLevel - 1) - STREAK_THRESHOLD;
                         }
                     }
                     RegressLevel();

@@ -35,14 +35,25 @@ namespace BasketGame
         {
             string progress_dir = ((ViewModel)DataContext).ThemeRootDirectory + "/ProgressBar/";
             ((ViewModel)DataContext).ItemCaught += new EventHandler(FallingItemControl_ItemCaught);
+            ((ViewModel)DataContext).ItemMissed += new EventHandler(ProgressFlagControl_ItemMissed);
             this.MainBasket.Source = new BitmapImage(new Uri("pack://application:,,,/Images/" + progress_dir + "mainbasket.png"));
             this.BasketFlash.Source = new BitmapImage(new Uri("pack://application:,,,/Images/" + progress_dir + "mainbasket_hover.png"));
+            this.BasketFlashBad.Source = new BitmapImage(new Uri("pack://application:,,,/Images/" + progress_dir + "mainbasket_hover_bad.png"));
+        }
+
+        void ProgressFlagControl_ItemMissed(object sender, EventArgs e)
+        {
+            BasketFlashBad.Visibility = System.Windows.Visibility.Visible;
+
+            if (!hoverFlashTimer.IsEnabled)
+                hoverFlashTimer.Start();
         }
 
         void hoverFlashTimer_Tick(object sender, EventArgs e)
         {
             hoverFlashTimer.Stop();
             BasketFlash.Visibility = System.Windows.Visibility.Hidden;
+            BasketFlashBad.Visibility = System.Windows.Visibility.Hidden;
         }
 
         void FallingItemControl_ItemCaught(object sender, EventArgs e)

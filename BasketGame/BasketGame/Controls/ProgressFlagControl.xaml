@@ -10,14 +10,19 @@
     </UserControl.Resources>
     <Grid Width="1300" Height="80">
         <Image Source="pack://application:,,,/Images/rope_horizontal.png" Width="1200" Height="80" Margin="-10 10 0 0"/>
-        <Image Source="pack://application:,,,/Images/sadface.png" Width="50" Height="50" HorizontalAlignment="Left"/>
-        <Image Source="pack://application:,,,/Images/flag.png" Width="80" Height="80" HorizontalAlignment="Right"/>
+        <Image Source="pack://application:,,,/Images/star.png" Width="80" Height="80" HorizontalAlignment="Right"/>
+        <!--<Image Source="pack://application:,,,/Images/flag.png" Width="80" Height="80" HorizontalAlignment="Right"/>-->
         <Image Width="75" Height="75" Margin="-1200 0 0 0" x:Name="MainBasket">
             <Image.RenderTransform>
                 <TranslateTransform X="{Binding Score, Converter={StaticResource scoreConverter}, ConverterParameter=50}"/>
             </Image.RenderTransform>
         </Image>
         <Image Width="75" Height="75" Margin="-1200 0 0 0" x:Name="BasketFlash" Visibility="Hidden">
+            <Image.RenderTransform>
+                <TranslateTransform X="{Binding Score, Converter={StaticResource scoreConverter}, ConverterParameter=50}"/>
+            </Image.RenderTransform>
+        </Image>
+        <Image Width="75" Height="75" Margin="-1200 0 0 0" x:Name="BasketFlashBad" Visibility="Hidden">
             <Image.RenderTransform>
                 <TranslateTransform X="{Binding Score, Converter={StaticResource scoreConverter}, ConverterParameter=50}"/>
             </Image.RenderTransform>

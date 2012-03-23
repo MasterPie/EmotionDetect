@@ -92,7 +92,7 @@ namespace BasketGame
             {
                 ((ViewModel)DataContext).ItemHitGround();
                 soundPlayer.Open(new Uri("Music/splat.mp3",UriKind.RelativeOrAbsolute));
-                soundPlayer.Volume = 1;
+                soundPlayer.Volume = 0.3;
                 soundPlayer.Play();
                 ItemImage.Visibility = System.Windows.Visibility.Hidden;
                 Splat.Visibility = System.Windows.Visibility.Visible;
@@ -118,7 +118,7 @@ namespace BasketGame
 
         private bool HitGround()
         {
-            return (double)GetValue(Canvas.TopProperty) >= (App.Current.MainWindow.ActualHeight - 25);
+            return (double)GetValue(Canvas.TopProperty) >= (App.Current.MainWindow.ActualHeight - 50);
         }
 
         private BasketControl HitBasket()
