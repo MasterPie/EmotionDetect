@@ -165,8 +165,8 @@ namespace BasketGame
         private bool instructional = true;
         public void ItemHitGround()
         {
-            if (ItemCaught != null)
-                ItemCaught(this, new EventArgs());
+            if (ItemMissed != null)
+                ItemMissed(this, new EventArgs());
             
             itemsDropped++;
             if (itemsCaught != 0)
@@ -246,6 +246,7 @@ namespace BasketGame
         public event EventHandler<ItemSpawnEventArgs> ItemSpawned;
         public event PropertyChangedEventHandler PropertyChanged;
         public event EventHandler ItemCaught;
+        public event EventHandler ItemMissed;
         public event EventHandler GameEnded;
         public event EventHandler BillyConcerned;
         public event EventHandler BillyHappy;

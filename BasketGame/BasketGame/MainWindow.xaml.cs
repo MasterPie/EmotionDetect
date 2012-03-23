@@ -38,26 +38,26 @@ namespace BasketGame
 
         void MainWindow_BillyInstructs(object sender, EventArgs e)
         {
-            billyPlayer.Stop();
-            billyPlayer.Open(new Uri("Music/usebaskets.wav", UriKind.RelativeOrAbsolute));
-            billyPlayer.Volume = 1;
-            billyPlayer.Play();
+            //billyPlayer.Stop();
+            //billyPlayer.Open(new Uri("Music/usebaskets.wav", UriKind.RelativeOrAbsolute));
+            //billyPlayer.Volume = 1;
+            //billyPlayer.Play();
         }
 
         void MainWindow_BillyHappy(object sender, EventArgs e)
         {
-            billyPlayer.Stop();
-            billyPlayer.Open(new Uri("Music/keepitup.wav", UriKind.RelativeOrAbsolute));
-            billyPlayer.Volume = 1;
-            billyPlayer.Play();
+            //billyPlayer.Stop();
+            //billyPlayer.Open(new Uri("Music/keepitup.wav", UriKind.RelativeOrAbsolute));
+            //billyPlayer.Volume = 1;
+            //billyPlayer.Play();
         }
 
         void MainWindow_BillyConcerned(object sender, EventArgs e)
         {
-            billyPlayer.Stop();
-            billyPlayer.Open(new Uri("Music/ohno.wav", UriKind.RelativeOrAbsolute));
-            billyPlayer.Volume = 1;
-            billyPlayer.Play();
+            //billyPlayer.Stop();
+            //billyPlayer.Open(new Uri("Music/ohno.wav", UriKind.RelativeOrAbsolute));
+            //billyPlayer.Volume = 1;
+            //billyPlayer.Play();
         }
 
         void MainWindow_GameEnded(object sender, EventArgs e)

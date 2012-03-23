@@ -79,6 +79,11 @@ using DetectClient;
             {
                 randomColors[i++] = allColors[key];
             }
+            randomColors[0] = Colors.Red;
+            randomColors[1] = Colors.Blue;
+            randomColors[2] = Colors.Orange;
+            randomColors[3] = Colors.Green;
+            randomColors[4] = Colors.Yellow;
         }
 
         public ILevelManager LevelManager
@@ -196,6 +201,8 @@ using DetectClient;
             lock (scoreLock)
             {
                 itemsCollected++;
+                itemsCollected++;
+                positiveStreak++;
                 positiveStreak++;
 
                 if (negativeStreak > 0)

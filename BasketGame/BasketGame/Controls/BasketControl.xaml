@@ -7,6 +7,7 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
         <Image x:Name="BasketImage" />
+        <Image x:Name="IconImage" Width="50" Height="50" Margin="0 40 0 0"/>
         <Rectangle Width="100" Height="50" Fill="{Binding Color, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}" Visibility="Hidden"/>
     </Grid>
 </UserControl>

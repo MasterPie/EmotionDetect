@@ -247,6 +247,8 @@
     <Resource Include="Images\sadface.png" />
     <Resource Include="Images\flag.png" />
     <Resource Include="Images\rope_horizontal.png" />
+    <Resource Include="Images\star.png" />
+    <Resource Include="Images\Fruit\ProgressBar\mainbasket_hover_bad.png" />
     <Content Include="Music\keepitup.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

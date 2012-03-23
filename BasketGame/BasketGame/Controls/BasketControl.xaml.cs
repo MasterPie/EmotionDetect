@@ -31,6 +31,7 @@ namespace BasketGame
             {
                 basket = value;
                 BasketImage.SetResourceReference(Image.SourceProperty, basket.Color.ToString() + "Basket");
+                IconImage.SetResourceReference(Image.SourceProperty, basket.Color.ToString() + "Item");
             }
             get
             {
