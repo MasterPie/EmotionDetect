@@ -219,11 +219,33 @@ namespace BasketGame
             }
         }
 
+        public Visibility FruitTheme
+        {
+            get
+            {
+                if (ThemeRootDirectory.Equals("Fruit"))
+                    return Visibility.Visible;
+                else
+                    return Visibility.Collapsed;
+            }
+        }
+
+        public Visibility VegetableTheme
+        {
+            get
+            {
+                if (ThemeRootDirectory.Equals("Vegetable"))
+                    return Visibility.Visible;
+                else
+                    return Visibility.Collapsed;
+            }
+        }
+
         public string ThemeRootDirectory
         {
             get
             {
-                return "Fruit";
+                return "Vegetable";//"Fruit"
             }
         }
 

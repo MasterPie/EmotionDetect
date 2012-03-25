@@ -4,8 +4,10 @@
         xmlns:local="clr-namespace:BasketGame" WindowState="Maximized" WindowStyle="None" ResizeMode="NoResize"
         Title="MainWindow" Height="1080" Width="1920" DataContext="{Binding ViewModel, Source={StaticResource loader}}" KeyDown="Window_KeyDown">
     <Grid>
-        <Image Source="pack://application:,,,/Images/background.png" Width="1920" Height="1080" Stretch="Fill"/>
-        <local:BalloonControl HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-50 -50 0 0"/>
+        <Image x:Name="Background" Width="1920" Height="1080" Stretch="Fill"/>
+        <local:BalloonControl HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-50 -50 0 0" Visibility="{Binding FruitTheme}"/>
+        <Image x:Name="Penguin" Width="100" Height="100" HorizontalAlignment="Right" 
+               Source="pack://application:,,,/Images/penguin.png" Margin="0 350 100 0" Visibility="{Binding VegetableTheme}"/>
         <TextBlock Text="{Binding Emotion}" FontSize="32" VerticalAlignment="Bottom" Margin="100 0 0 0" Visibility="{Binding ShowDebugging}"/>
         <TextBlock Text="{Binding Score}" FontSize="32" VerticalAlignment="Bottom" Visibility="{Binding ShowDebugging}"/>
         <TextBlock Text="{Binding CurrentLevel}" FontSize="32" VerticalAlignment="Bottom" Margin="50 0 0 0" Visibility="{Binding ShowDebugging}"/>

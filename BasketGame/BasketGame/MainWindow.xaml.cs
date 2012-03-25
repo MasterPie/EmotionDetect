@@ -34,6 +34,10 @@ namespace BasketGame
             ((ViewModel)DataContext).BillyConcerned += new EventHandler(MainWindow_BillyConcerned);
             ((ViewModel)DataContext).BillyHappy += new EventHandler(MainWindow_BillyHappy);
             ((ViewModel)DataContext).BillyInstructs += new EventHandler(MainWindow_BillyInstructs);
+
+            string dir = ((ViewModel)DataContext).ThemeRootDirectory;
+
+            Background.Source = new BitmapImage(new Uri(@"pack://application:,,,/Images/" + dir + "/background.png", UriKind.RelativeOrAbsolute));
         }
 
         void MainWindow_BillyInstructs(object sender, EventArgs e)
