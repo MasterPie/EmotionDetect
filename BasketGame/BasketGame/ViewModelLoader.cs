@@ -44,13 +44,16 @@ namespace BasketGame
             //ILevel levelFour = new BasicLevel() { ID = 4, LocationRandomness = 10, VarietyRandomness = 5, Speed = 5 };
             //ILevel levelFive = new BasicLevel() { ID = 5, LocationRandomness = 15, VarietyRandomness = 5, Speed = 5 };
 
-            ILevel levelOne = new BasicLevel() { ID = 1, LocationRandomness = 2, VarietyRandomness = 2, Speed = 3 };
-            ILevel levelTwo = new BasicLevel() { ID = 2, LocationRandomness = 10, VarietyRandomness = 3, Speed = 3 };
-            ILevel levelThree = new BasicLevel() { ID = 3, LocationRandomness = 10, VarietyRandomness = 4, Speed = 3 };
-            ILevel levelFour = new BasicLevel() { ID = 4, LocationRandomness = 10, VarietyRandomness = 5, Speed = 3 };
-            ILevel levelFive = new BasicLevel() { ID = 5, LocationRandomness = 15, VarietyRandomness = 5, Speed = 4 };
+            List<ILevel> demo = new List<ILevel>() { new BasicLevel() { ID = 1, LocationRandomness = 5, VarietyRandomness = 2, Speed = 4 }};
+
+            ILevel levelOne = new BasicLevel() { ID = 1, LocationRandomness = 2, VarietyRandomness = 2, Speed = 4 };
+            ILevel levelTwo = new BasicLevel() { ID = 2, LocationRandomness = 10, VarietyRandomness = 3, Speed = 4 };
+            ILevel levelThree = new BasicLevel() { ID = 3, LocationRandomness = 10, VarietyRandomness = 4, Speed = 4 };
+            ILevel levelFour = new BasicLevel() { ID = 4, LocationRandomness = 10, VarietyRandomness = 5, Speed = 4 };
+            ILevel levelFive = new BasicLevel() { ID = 5, LocationRandomness = 15, VarietyRandomness = 5, Speed = 5 };
 
             ILevelManager levelManager = new OrderedLevelManager();
+            //TODO: load demo level
             levelManager.LoadLevels(new List<ILevel>(){levelOne, levelTwo, levelThree, levelFour, levelFive});
 
             gameEngine.LevelManager = levelManager;

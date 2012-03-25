@@ -23,7 +23,7 @@ namespace BasketGame
             int val = (int)value;
             double max = Double.Parse((string)parameter);
 
-            return (((double)val * 870) / max);
+            return (((double)val * 1010) / max);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)

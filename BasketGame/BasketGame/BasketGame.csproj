@@ -228,9 +228,6 @@
     <Resource Include="Images\Fruit\Items\red.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\background.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\Fruit\Items\yellow.png" />
     <Resource Include="Images\Fruit\Items\blue.png" />
   </ItemGroup>
@@ -249,6 +246,17 @@
     <Resource Include="Images\rope_horizontal.png" />
     <Resource Include="Images\star.png" />
     <Resource Include="Images\Fruit\ProgressBar\mainbasket_hover_bad.png" />
+    <Resource Include="Images\Fruit\background.png" />
+    <Resource Include="Images\Vegetable\Items\blue.png" />
+    <Resource Include="Images\Vegetable\Items\green.png" />
+    <Resource Include="Images\Vegetable\Items\orange.png" />
+    <Resource Include="Images\Vegetable\Items\red.png" />
+    <Resource Include="Images\Vegetable\Items\yellow.png" />
+    <Resource Include="Images\Vegetable\ProgressBar\mainbasket.png" />
+    <Resource Include="Images\Vegetable\ProgressBar\mainbasket_hover.png" />
+    <Resource Include="Images\Vegetable\ProgressBar\mainbasket_hover_bad.png" />
+    <Resource Include="Images\Vegetable\background.png" />
+    <Resource Include="Images\penguin.png" />
     <Content Include="Music\keepitup.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -281,10 +289,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Images\Vegetable\Items\" />
-    <Folder Include="Images\Vegetable\ProgressBar\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

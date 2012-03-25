@@ -26,7 +26,7 @@ using DetectClient;
 
         private string loggingSessionID = "";
 
-        private const int MAX_COLLECTION = 70;
+        private const int MAX_COLLECTION = 60;
         protected const int STREAK_THRESHOLD = 12;
         protected int negativeStreak = 0;
         protected int positiveStreak = 0;
@@ -116,8 +116,6 @@ using DetectClient;
             {
                 NewEmotion(this, e);
             }
-            //logging?
-            //TODO: log
         }
 
         public void Start()
@@ -201,12 +199,13 @@ using DetectClient;
             lock (scoreLock)
             {
                 itemsCollected++;
-                itemsCollected++;
-                positiveStreak++;
+                //itemsCollected++;
                 positiveStreak++;
 
                 if (negativeStreak > 0)
+                {
                     negativeStreak--;
+                }
 
                 if (ScoreUpdated != null)
                     ScoreUpdated(this, new EventArgs());
@@ -223,7 +222,9 @@ using DetectClient;
                     itemsCollected--;
 
                 if (positiveStreak > 0)
+                {
                     positiveStreak--;
+                }
 
                 negativeStreak++;
 
@@ -260,8 +261,10 @@ using DetectClient;
 
         private void LoadLevel(ILevel level)
         {
-            positiveStreak = negativeStreak = 0;
-
+            lock (scoreLock)
+            {
+                positiveStreak = negativeStreak = 0;
+            }
             spawnLocations = new double[currentLevel.LocationRandomness];
             spawnVariety = new Color[currentLevel.VarietyRandomness];
 
@@ -289,7 +292,7 @@ using DetectClient;
 
         public string AssessState()
         {
-            return currentEmotion + "\t" + currentLevel.ID + "\t" + CurrentScore  + "\t" + mismatches; //TODO: Figure out what to track EMOTION LEVEL SCORE MISMATCH
+            return currentEmotion + "\t" + currentLevel.ID + "\t" + CurrentScore  + "\t" + positiveStreak + "\t" + negativeStreak + "\t" + mismatches; //TODO: Figure out what to track EMOTION LEVEL SCORE MISMATCH
         }
 
         public void Cleanup()
@@ -308,7 +311,10 @@ using DetectClient;
 
         public void WinGame()
         {
-            itemsCollected = MAX_COLLECTION;
+            lock (scoreLock)
+            {
+                itemsCollected = MAX_COLLECTION;
+            }
             CheckWinGame();
         }
 

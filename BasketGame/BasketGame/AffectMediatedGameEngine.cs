@@ -37,7 +37,10 @@ namespace BasketGame
                     {
                         if (this.CurrentScore >= STREAK_THRESHOLD)
                         {
-                            this.itemsCollected = STREAK_THRESHOLD * (CurrentLevel - 1) - STREAK_THRESHOLD;
+                            //this.itemsCollected = STREAK_THRESHOLD * (CurrentLevel - 1) - STREAK_THRESHOLD;
+                            this.itemsCollected = this.itemsCollected - STREAK_THRESHOLD;
+                            if (this.itemsCollected < 0)
+                                itemsCollected = 0;
                         }
                     }
                     RegressLevel();
