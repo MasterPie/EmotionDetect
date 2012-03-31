@@ -18,20 +18,15 @@ namespace BasketGame
     /// </summary>
     public class AffectMediatedGameEngine : SimpleGameEngine
     {
-        private int checkRegressTime = 0;
+        private Label lastEmotion;
 
         protected override void gameLoopTimer_Tick(object sender, EventArgs e)
         {
-            if (positiveStreak >= STREAK_THRESHOLD) //no longer requiring positiveness to win
+            if (positiveStreak >= STREAK_THRESHOLD)
                 AdvanceLevel();
-            else if (negativeStreak >= STREAK_THRESHOLD)
-            {
-                checkRegressTime = 5;
-                RegressLevel();
-            }
             else if (Negative())
             {
-                if (checkRegressTime <= 0)
+                if (!Negative(this.lastEmotion))
                 {
                     lock (this.scoreLock)
                     {
@@ -44,21 +39,25 @@ namespace BasketGame
                         }
                     }
                     RegressLevel();
-                    checkRegressTime = 5;
                 }
-                else
-                    checkRegressTime--;
+            }
+            else if (negativeStreak >= STREAK_THRESHOLD)
+            {
+                RegressLevel();
             }
 
-            if (Positive())
-                checkRegressTime = 0;
+            lastEmotion = this.currentEmotion;
 
             SpawnItem();
         }
 
         private bool Negative()
         {
-            return (currentEmotion == Label.Surprise || currentEmotion == Label.Anger || currentEmotion == Label.Disgust || currentEmotion == Label.Fear);
+            return Negative(currentEmotion);
+        }
+        private bool Negative(Label emotion)
+        {
+            return (emotion == Label.Surprise || emotion == Label.Anger || emotion == Label.Disgust || emotion == Label.Fear);
         }
 
         private bool Positive()

@@ -26,12 +26,14 @@ using DetectClient;
 
         private string loggingSessionID = "";
 
-        private const int MAX_COLLECTION = 60;
-        protected const int STREAK_THRESHOLD = 12;
+        private const int MAX_COLLECTION = 50;
+        protected const int STREAK_THRESHOLD = 8;
         protected int negativeStreak = 0;
         protected int positiveStreak = 0;
         protected int itemsCollected = 0;
         private int maxItemScore = 0;
+        private int totalCatches = 0;
+        private int totalMisses = 0;
         private int mismatches = 0;
 
         private double[] spawnLocations = null;
@@ -198,6 +200,7 @@ using DetectClient;
         {
             lock (scoreLock)
             {
+                totalCatches++;
                 itemsCollected++;
                 //itemsCollected++;
                 positiveStreak++;
@@ -218,6 +221,8 @@ using DetectClient;
         {
             lock (scoreLock)
             {
+                totalMisses++;
+
                 if (itemsCollected > 0)
                     itemsCollected--;
 
@@ -292,7 +297,7 @@ using DetectClient;
 
         public string AssessState()
         {
-            return currentEmotion + "\t" + currentLevel.ID + "\t" + CurrentScore  + "\t" + positiveStreak + "\t" + negativeStreak + "\t" + mismatches; //TODO: Figure out what to track EMOTION LEVEL SCORE MISMATCH
+            return currentEmotion + "\t" + currentLevel.ID + "\t" + CurrentScore  + "\t" + positiveStreak + "\t" + negativeStreak + "\t" + totalCatches  + "\t" + totalMisses; //TODO: Figure out what to track EMOTION LEVEL SCORE MISMATCH
         }
 
         public void Cleanup()

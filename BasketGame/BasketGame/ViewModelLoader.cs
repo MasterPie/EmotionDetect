@@ -32,7 +32,13 @@ namespace BasketGame
                 .Metadata.DefaultValue;
 
             emotionClassifer = new DetectClient.Client();
-            gameEngine = new AffectMediatedGameEngine();
+
+
+            if (Properties.Settings.Default.AffectMediated)
+                gameEngine = new AffectMediatedGameEngine();
+            else
+                gameEngine = new SimpleGameEngine();
+            
             logger = new TimeBasedLogger();
             gameEngine.ItemFactory = new BasicItemFactory();
             gameEngine.EmotionClassifier = emotionClassifer;
@@ -46,9 +52,9 @@ namespace BasketGame
 
             List<ILevel> demo = new List<ILevel>() { new BasicLevel() { ID = 1, LocationRandomness = 5, VarietyRandomness = 2, Speed = 4 }};
 
-            ILevel levelOne = new BasicLevel() { ID = 1, LocationRandomness = 2, VarietyRandomness = 2, Speed = 4 };
-            ILevel levelTwo = new BasicLevel() { ID = 2, LocationRandomness = 10, VarietyRandomness = 3, Speed = 4 };
-            ILevel levelThree = new BasicLevel() { ID = 3, LocationRandomness = 10, VarietyRandomness = 4, Speed = 4 };
+            ILevel levelOne = new BasicLevel() { ID = 1, LocationRandomness = 2, VarietyRandomness = 2, Speed = 3 };
+            ILevel levelTwo = new BasicLevel() { ID = 2, LocationRandomness = 10, VarietyRandomness = 3, Speed = 3 };
+            ILevel levelThree = new BasicLevel() { ID = 3, LocationRandomness = 10, VarietyRandomness = 4, Speed = 3 };
             ILevel levelFour = new BasicLevel() { ID = 4, LocationRandomness = 10, VarietyRandomness = 5, Speed = 4 };
             ILevel levelFive = new BasicLevel() { ID = 5, LocationRandomness = 15, VarietyRandomness = 5, Speed = 5 };
 
@@ -57,7 +63,7 @@ namespace BasketGame
             levelManager.LoadLevels(new List<ILevel>(){levelOne, levelTwo, levelThree, levelFour, levelFive});
 
             gameEngine.LevelManager = levelManager;
-
+                
         }
 
 
@@ -67,7 +73,7 @@ namespace BasketGame
             {
                 if (viewModelStatic == null)
                 {
-                    viewModelStatic = new ViewModel(gameEngine, logger);
+                    viewModelStatic = new ViewModel(gameEngine, logger, Properties.Settings.Default.Theme);
                 }
                 return viewModelStatic;
             }
