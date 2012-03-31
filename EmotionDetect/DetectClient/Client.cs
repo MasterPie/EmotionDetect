@@ -129,7 +129,7 @@ namespace DetectClient
             }
         }
 
-        private const double PERCENT_THRESHOLD = 0.3;
+        private const double PERCENT_THRESHOLD = 0.8;
         private Label sustainedEmotion;
         private void CheckSustained(Label currentEmotion)
         {

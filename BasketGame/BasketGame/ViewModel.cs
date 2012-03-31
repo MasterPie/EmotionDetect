@@ -24,14 +24,16 @@ namespace BasketGame
     {
         private IGameEngine engine = null;
         private ILogger log = null;
+        private string gametheme = null;
 
         private int itemsCaught = 0;
         private int itemsDropped = 0;
 
-        public ViewModel(IGameEngine gameEngine, ILogger logger)
+        public ViewModel(IGameEngine gameEngine, ILogger logger, string theme)
         {
             engine = gameEngine;
             log = logger;
+            gametheme = theme;
 
             engine.ItemSpawned += new EventHandler<ItemSpawnEventArgs>(gameEngine_ItemSpawned);
             engine.LevelCompleted += new EventHandler<ChangeLevelEventArgs>(gameEngine_LevelCompleted);
@@ -245,7 +247,7 @@ namespace BasketGame
         {
             get
             {
-                return "Vegetable";//"Fruit"
+                return gametheme;
             }
         }
 

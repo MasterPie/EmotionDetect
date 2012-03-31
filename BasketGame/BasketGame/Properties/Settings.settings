@@ -5,5 +5,11 @@
     <Setting Name="TwoClickDrag" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="AffectMediated" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="Theme" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Vegetable</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
